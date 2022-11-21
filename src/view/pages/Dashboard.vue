@@ -12,7 +12,6 @@
 
       <article class="col-sm-12">
         <h3>Offertas</h3>
-        
       </article>
 
     </section>
