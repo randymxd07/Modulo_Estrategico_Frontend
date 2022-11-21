@@ -98,7 +98,7 @@
         </a>
       </li>
       
-      <!-- ITEM -->
+      <!-- ITEM: DESSERTS -->
       <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
@@ -109,12 +109,12 @@
             <img width="40px" height="40px" src="assets\Postres.png" alt="">
           </span>
           <span class="nav-text font-size-lg py-2 font-weight-bolder text-center">
-            System Security
+            Postres
           </span>
         </a>
       </li>
       
-      <!-- ITEM -->
+      <!-- ITEM: SEAFOOD -->
       <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
@@ -122,12 +122,11 @@
           href="#tab_forms_widget_5"
         >
           <span class="nav-icon py-2 w-auto">
-            <img width="40px" height="40px" src="assets\Pizza.png" alt="">
+            <img width="40px" height="40px" src="assets\Mariscos.png" alt="">
           </span>
-          <span
-            class="nav-text font-size-lg py-2 font-weight-bolder text-center"
-            >System Security</span
-          >
+          <span class="nav-text font-size-lg py-2 font-weight-bolder text-center">
+            Mariscos
+          </span>
         </a>
       </li>
 
