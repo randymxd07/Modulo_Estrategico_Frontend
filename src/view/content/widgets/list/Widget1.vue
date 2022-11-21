@@ -108,10 +108,9 @@
           <span class="nav-icon py-2 w-auto">
             <img width="40px" height="40px" src="assets\Postres.png" alt="">
           </span>
-          <span
-            class="nav-text font-size-lg py-2 font-weight-bolder text-center"
-            >System Security</span
-          >
+          <span class="nav-text font-size-lg py-2 font-weight-bolder text-center">
+            System Security
+          </span>
         </a>
       </li>
       
