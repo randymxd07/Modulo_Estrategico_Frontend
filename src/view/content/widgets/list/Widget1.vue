@@ -8,7 +8,7 @@
       role="tablist"
     >
 
-      <!-- ITEM -->
+      <!-- ITEM: BURGERS -->
       <li
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
@@ -18,19 +18,16 @@
           href="#tab_forms_widget_1"
         >
           <span class="nav-icon py-2 w-auto">
-            <span class="svg-icon svg-icon-3x">
-              <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
-              <inline-svg src="media/svg/icons/Home/Library.svg" />
-              <!--end::Svg Icon-->
-            </span>
+            <img width="40px" height="40px" src="assets\Hamburguesa.png" alt="">
           </span>
-          <span class="nav-text font-size-lg py-2 font-weight-bold text-center"
-            >SAAS Application</span
+          <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
+            Hamburguesas
+          </span
           >
         </a>
       </li>
       
-      <!-- ITEM -->
+      <!-- ITEM: PIZZAS -->
       <li
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
@@ -40,20 +37,16 @@
           href="#tab_forms_widget_2"
         >
           <span class="nav-icon py-2 w-auto">
-            <span class="svg-icon svg-icon-3x">
-              <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
-              <inline-svg src="media/svg/icons/Layout/Layout-4-blocks.svg" />
-              <!--end::Svg Icon-->
-            </span>
+            <img width="40px" height="40px" src="assets\Pizza.png" alt="">
           </span>
           <span
-            class="nav-text font-size-lg py-2 font-weight-bolder text-center"
-            >Main Categories</span
-          >
+            class="nav-text font-size-lg py-2 font-weight-bolder text-center">
+            Pizzas
+          </span>
         </a>
       </li>
 
-      <!-- ITEM -->
+      <!-- ITEM: CHICKEN -->
       <li
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
@@ -63,18 +56,15 @@
           href="#tab_forms_widget_3"
         >
           <span class="nav-icon py-2 w-auto">
-            <span class="svg-icon svg-icon-3x">
-              <inline-svg src="media/svg/icons/Media/Movie-Lane2.svg" />
-            </span>
+            <img width="40px" height="40px" src="assets\Pollo.png" alt="">
           </span>
-          <span
-            class="nav-text font-size-lg py-2 font-weight-bolder text-center"
-            >Video Tutorials</span
-          >
+          <span class="nav-text font-size-lg py-2 font-weight-bolder text-center">
+            Pollo
+          </span>
         </a>
       </li>
 
-      <!-- ITEM -->
+      <!-- ITEM: DRINKS -->
       <li
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
@@ -84,19 +74,30 @@
           href="#tab_forms_widget_4"
         >
           <span class="nav-icon py-2 w-auto">
-            <span class="svg-icon svg-icon-3x">
-              <!--begin::Svg Icon | path:assets/media/svg/icons/Media/Equalizer.svg-->
-              <inline-svg src="media/svg/icons/Media/Equalizer.svg" />
-              <!--end::Svg Icon-->
-            </span>
+            <img width="40px" height="40px" src="assets\Bebidas.png" alt="">
           </span>
-          <span
-            class="nav-text font-size-lg py-2 font-weight-bolder text-center"
-            >Sales Statistics</span
-          >
+          <span class="nav-text font-size-lg py-2 font-weight-bolder text-center">
+            Bebidas
+          </span>
         </a>
       </li>
 
+      <!-- ITEM: SANDWICH -->
+      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
+        <a
+          class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
+          data-toggle="pill"
+          href="#tab_forms_widget_5"
+        >
+          <span class="nav-icon py-2 w-auto">
+            <img width="40px" height="40px" src="assets\Sandwich.png" alt="">
+          </span>
+          <span class="nav-text font-size-lg py-2 font-weight-bolder text-center">
+            Sandwiches
+          </span>
+        </a>
+      </li>
+      
       <!-- ITEM -->
       <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
         <a
@@ -105,9 +106,7 @@
           href="#tab_forms_widget_5"
         >
           <span class="nav-icon py-2 w-auto">
-            <span class="svg-icon svg-icon-3x">
-              <inline-svg src="media/svg/icons/General/Shield-check.svg" />
-            </span>
+            <img width="40px" height="40px" src="assets\Postres.png" alt="">
           </span>
           <span
             class="nav-text font-size-lg py-2 font-weight-bolder text-center"
@@ -124,28 +123,7 @@
           href="#tab_forms_widget_5"
         >
           <span class="nav-icon py-2 w-auto">
-            <span class="svg-icon svg-icon-3x">
-              <inline-svg src="media/svg/icons/General/Shield-check.svg" />
-            </span>
-          </span>
-          <span
-            class="nav-text font-size-lg py-2 font-weight-bolder text-center"
-            >System Security</span
-          >
-        </a>
-      </li>
-      
-      <!-- ITEM -->
-      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
-        <a
-          class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
-          data-toggle="pill"
-          href="#tab_forms_widget_5"
-        >
-          <span class="nav-icon py-2 w-auto">
-            <span class="svg-icon svg-icon-3x">
-              <inline-svg src="media/svg/icons/General/Shield-check.svg" />
-            </span>
+            <img width="40px" height="40px" src="assets\Pizza.png" alt="">
           </span>
           <span
             class="nav-text font-size-lg py-2 font-weight-bolder text-center"
