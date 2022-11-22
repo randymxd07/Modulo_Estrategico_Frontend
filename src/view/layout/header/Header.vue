@@ -36,6 +36,7 @@
 
         <!--begin::Desktop Search-->
         <div
+          v-show="false"
           class="quick-search quick-search-inline ml-20 w-300px"
           id="kt_quick_search_inline"
         >

@@ -2,14 +2,14 @@
   <!-- begin:: Header Topbar -->
   <div class="topbar">
     <!--begin: Search -->
-    <KTSearchDefault></KTSearchDefault>
+    <KTSearchDefault v-show="false"></KTSearchDefault>
 
     <!--begin: Quick panel toggle -->
     <KTQuickPanel v-show="false"></KTQuickPanel>
     <!--end: Quick panel toggle -->
 
     <!--begin: Quick panel toggle -->
-    <KTQuickActions></KTQuickActions>
+    <KTQuickActions v-show="false"></KTQuickActions>
     <!--end: Quick panel toggle -->
 
     <!--begin: User Bar -->

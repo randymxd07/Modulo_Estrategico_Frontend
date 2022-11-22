@@ -45,12 +45,13 @@
       <!-- PRODUCTS -->
       <section class="col-sm-12">
 
+        <!-- CONTENT -->
         <div class="row">
 
-          <!-- CONTENT -->
-          <article class="col-sm-12 col-md-3 mb-5" v-for="data in 8" :key="data">
+          <!-- CARDS -->
+          <article class="col-sm-12 col-md-3 mb-5" v-for="data in products" :key="data">
 
-            <!-- CARDS -->
+            <!-- CARD -->
             <div class="card">
 
               <!-- CARD IMAGE -->
@@ -60,7 +61,7 @@
                 <img
                   width="600"
                   height="150"
-                  src="assets/product1.jpg" 
+                  :src="data.image_url" 
                   class="card-img-top" 
                   alt="..."
                 >
@@ -68,7 +69,7 @@
                 <!-- PRICE -->
                 <div class="card-img-overlay">
                   <b class="bg-primary rounded card-title p-3">
-                    RD$500
+                    RD${{data.price}}
                   </b>
                 </div>
 
@@ -78,18 +79,25 @@
               <div class="card-body">
 
                 <!-- TITLE -->
-                <div class="">
+                <article class="">
 
                   <!-- PRODUCT NAME -->
-                  <h5 class="card-title m-0">
-                    Card title
+                  <h5 class="card-title mb-3">
+                    {{data.name}}
                   </h5>
 
-                  <!--  -->
+                  <b-form-rating
+                    variant="warning" 
+                    inline 
+                    :value="data.score"
+                  ></b-form-rating>
+
+                  <!-- ESTIMATED TIME -->
                   <p class="mt-3">
-                    Tiempo Estimado: <span class="text-primary">5m</span>
+                    Tiempo Estimado: <span class="text-primary">{{data.estimated_time}}</span>
                   </p>
-                </div>
+
+                </article>
 
                 <!-- DESCRIPTION -->
                 <p class="card-text">
@@ -122,6 +130,7 @@
 import { SET_BREADCRUMB } from "@/core/services/store/breadcrumbs.module";
 import ListWidget1 from "@/view/content/widgets/list/Widget1.vue";
 import offerImages from "@/core/data/offerImages.js";
+import products from "@/core/data/products.js";
 
 export default {
 
@@ -132,13 +141,10 @@ export default {
   },
 
   data(){
-
     return{
-
       offerImages,
-
+      products,
     }
-
   },
 
   mounted() {

@@ -83,7 +83,7 @@
       </li>
 
       <!-- ITEM: SANDWICH -->
-      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
+      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
           data-toggle="pill"
@@ -99,7 +99,7 @@
       </li>
       
       <!-- ITEM: DESSERTS -->
-      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
+      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
           data-toggle="pill"
@@ -115,7 +115,7 @@
       </li>
       
       <!-- ITEM: SEAFOOD -->
-      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3">
+      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
           data-toggle="pill"

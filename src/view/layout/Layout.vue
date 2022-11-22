@@ -43,7 +43,8 @@
       </div>
     </div>
 
-    <KTStickyToolbar v-if="toolbarDisplay"></KTStickyToolbar>
+    <!-- <KTStickyToolbar v-if="toolbarDisplay"></KTStickyToolbar> -->
+    <KTStickyToolbar v-show="false"></KTStickyToolbar>
     <KTScrollTop></KTScrollTop>
   </div>
 </template>
