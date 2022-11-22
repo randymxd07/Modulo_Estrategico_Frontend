@@ -106,7 +106,7 @@
 
                 <!-- ADD CART BUTTON -->
                 <button class="col-sm-12 btn btn-primary">
-                  <i class="fas fa-cart-arrow-down"></i> Agregar al Carrito
+                  <i class="fas fa-cart-plus"></i> Agregar al Carrito
                 </button>
 
               </div>

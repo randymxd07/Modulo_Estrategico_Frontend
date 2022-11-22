@@ -1,29 +1,38 @@
 <template>
-  <div class="topbar-item">
-    <div id="kt_quick_notifications_toggle">
-      <!-- <div class="btn btn-icon btn-sm btn-primary font-weight-bolder p-0">
-        3
-      </div> -->
 
+  <div class="topbar-item">
+
+    <!-------------------------
+        SHOPPING CART BUTTON
+    --------------------------->
+    <div id="kt_quick_notifications_toggle">
       <div class="btn btn-clean">
         <i class="fas fa-shopping-cart"></i>
-        <b-badge variant="light">9 <span class="sr-only">unread messages</span></b-badge>
+        <b-badge variant="light">{{list1.length}}</b-badge>
       </div>
     </div>
 
-    <!-- begin::Notifications Panel-->
+    <!------------
+        CONTENT
+    -------------->
     <div
       id="kt_quick_notifications"
       ref="kt_quick_notifications"
       class="offcanvas offcanvas-right p-10"
     >
+
+      <!-- HEADING -->
       <div
         class="offcanvas-header d-flex align-items-center justify-content-between mb-10"
       >
+
+        <!-- TITLE -->
         <h3 class="font-weight-bold m-0">
-          Notifications
-          <small class="text-muted font-size-sm ml-2">24 New</small>
+          Carrito de Compras
+          <!-- <small class="text-muted font-size-sm ml-2">24 New</small> -->
         </h3>
+
+        <!-- CLOSE BUTTON -->
         <a
           href="#"
           class="btn btn-xs btn-icon btn-light btn-hover-primary"
@@ -31,8 +40,10 @@
         >
           <i class="ki ki-close icon-xs text-muted"></i>
         </a>
+
       </div>
-      <!--begin::Content-->
+
+      <!-- CONTENT -->
       <div class="offcanvas-content pr-5 mr-n5">
         <div class="navi navi-icon-circle navi-spacer-x-0">
           <template v-for="(item, i) in list1">
@@ -46,22 +57,33 @@
                 </div>
                 <div class="navi-text">
                   <div class="font-weight-bold font-size-lg">
-                    {{ item.title }}
+                    {{ item.name }}
                   </div>
                   <div class="text-muted">
-                    {{ item.desc }}
+                    RD$ {{ item.price }}
                   </div>
                 </div>
+                <button class="btn btn-outline-primary">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
               </div>
             </a>
             <!--end::Item-->
           </template>
+          <hr>
+          <section class="my-5">
+            <h3>Total a Pagar: <span>RD$ {{getTotalAccount()}}</span></h3>
+          </section>
+          <button type="button" class="col-sm-12 btn btn-lg btn-outline-primary">
+            <i class="fas fa-money-bill-alt"></i> Pagar
+          </button>
         </div>
       </div>
-      <!--end::Content-->
+
     </div>
-    <!-- end::Notifications Panel-->
+
   </div>
+
 </template>
 
 <script>
@@ -73,70 +95,23 @@ export default {
     return {
       list1: [
         {
-          title: "5 new user generated report",
-          desc: "Reports based on sales",
-          icon: "flaticon-bell text-success"
+          id: '',
+          name: "Pizza de Peperoni",
+          price: 850,
+          icon: "flaticon-shopping-basket text-primary"
         },
         {
-          title: "2 new items submited",
-          desc: "by Grog John",
-          icon: "flaticon2-box text-danger"
+          id: '',
+          name: "Flan",
+          price: 85,
+          icon: "flaticon-shopping-basket text-primary"
         },
         {
-          title: "79 PSD files generated",
-          desc: "Reports based on sales",
-          icon: "flaticon-psd text-primary"
+          id: '',
+          name: "Big Special Burguer",
+          price: 350,
+          icon: "flaticon-shopping-basket text-primary"
         },
-        {
-          title: "$2900 worth producucts sold",
-          desc: "Total 234 items",
-          icon: "flaticon2-supermarket text-warning"
-        },
-        {
-          title: "4.5h-avarage response time",
-          desc: "Fostest is Barry",
-          icon: "flaticon-paper-plane-1 text-success"
-        },
-        {
-          title: "3 Defence alerts",
-          desc: "40% less alerts thar last week",
-          icon: "flaticon-safe-shield-protection text-danger"
-        },
-        {
-          title: "Avarage 4 blog posts per author",
-          desc: "Most posted 12 time",
-          icon: "flaticon-notepad text-primary"
-        },
-        {
-          title: "16 authors joined last week",
-          desc: "9 photodrapehrs, 7 designer",
-          icon: "flaticon-users-1 text-warning"
-        },
-        {
-          title: "2 new items have been submited",
-          desc: "by Grog John",
-          icon: "flaticon2-box text-info"
-        },
-        {
-          title: "2.8 GB-total downloads size",
-          desc: "Mostly PSD end  AL concepts",
-          icon: "flaticon2-download text-success"
-        },
-        {
-          title: "$2900 worth producucts sold",
-          desc: "Total 234 items",
-          icon: "flaticon2-supermarket text-danger"
-        },
-        {
-          title: "7 new user generated report",
-          desc: "Reports based on sales",
-          icon: "flaticon-bell text-primary"
-        },
-        {
-          title: "4.5h-avarage response time",
-          desc: "Fostest is Barry",
-          icon: "flaticon-paper-plane-1 text-success"
-        }
       ]
     };
   },
@@ -144,6 +119,14 @@ export default {
     // Init Quick Offcanvas Panel
     KTLayoutQuickNotifications.init(this.$refs["kt_quick_notifications"]);
   },
-  methods: {}
+  methods: {
+    getTotalAccount(){
+      var sum = 0;
+      this.list1.forEach(ele => {
+        sum += ele.price;
+      });
+      return sum;
+    },
+  },
 };
 </script>
