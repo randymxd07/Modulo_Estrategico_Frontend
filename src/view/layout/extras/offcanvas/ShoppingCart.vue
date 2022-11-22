@@ -1,8 +1,13 @@
 <template>
   <div class="topbar-item">
     <div id="kt_quick_notifications_toggle">
-      <div class="btn btn-icon btn-sm btn-primary font-weight-bolder p-0">
+      <!-- <div class="btn btn-icon btn-sm btn-primary font-weight-bolder p-0">
         3
+      </div> -->
+
+      <div class="btn btn-clean">
+        <i class="fas fa-shopping-cart"></i>
+        <b-badge variant="light">9 <span class="sr-only">unread messages</span></b-badge>
       </div>
     </div>
 

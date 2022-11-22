@@ -13,7 +13,7 @@
     <KTQuickActions v-show="false"></KTQuickActions>
     <!--end: Quick panel toggle -->
 
-    <KTQuickNotifications class="mr-5"></KTQuickNotifications>
+    <ShoppingCart class="mr-5"></ShoppingCart>
 
     <!--begin: User Bar -->
     <KTQuickUser></KTQuickUser>
@@ -54,7 +54,7 @@ import KTSearchDefault from "@/view/layout/extras/dropdown/DropdownCreate.vue";
 import KTQuickUser from "@/view/layout/extras/offcanvas/QuickUser.vue";
 import KTQuickPanel from "@/view/layout/extras/offcanvas/QuickPanel.vue";
 import KTQuickActions from "@/view/layout/extras/offcanvas/QuickActions.vue";
-import KTQuickNotifications from "@/view/layout/extras/offcanvas/QuickNotifications.vue";
+import ShoppingCart from "@/view/layout/extras/offcanvas/ShoppingCart.vue";
 
 export default {
   name: "KTTopbar",
@@ -66,7 +66,7 @@ export default {
     KTQuickUser,
     KTQuickPanel,
     KTQuickActions,
-    KTQuickNotifications
+    ShoppingCart
   },
   methods: {},
   computed: {
