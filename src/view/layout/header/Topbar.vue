@@ -1,6 +1,7 @@
 <template>
   <!-- begin:: Header Topbar -->
   <div class="topbar">
+
     <!--begin: Search -->
     <KTSearchDefault v-show="false"></KTSearchDefault>
 
@@ -12,11 +13,12 @@
     <KTQuickActions v-show="false"></KTQuickActions>
     <!--end: Quick panel toggle -->
 
+    <KTQuickNotifications class="mr-5"></KTQuickNotifications>
+
     <!--begin: User Bar -->
     <KTQuickUser></KTQuickUser>
     <!--end: User Bar -->
 
-    <KTQuickNotifications></KTQuickNotifications>
   </div>
   <!-- end:: Header Topbar -->
 </template>
