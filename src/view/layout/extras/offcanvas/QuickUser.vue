@@ -108,37 +108,8 @@
           <h5 class="mb-5">Ultimas 4 compras</h5>
 
           <!-- ITEM -->
-          <!-- <router-link
-            to=""
-            @click.native="closeOffcanvas"
-            href="#"
-            class="navi-item"
-          >
-            <div class="navi-link text-hover-primary">
-              <div class="symbol symbol-40 bg-light mr-3">
-                <div class="symbol-label">
-                  <span class="svg-icon svg-icon-md svg-icon-success">
-                    <i class="fas fa-eye"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="navi-text">
-                <div class="font-weight-bold">17/06/2022</div>
-                <div class="text-muted">
-                  Papas fritas, hamburguesa con doble carne, refresco de uva
-                  <span
-                    class="label label-light-danger label-inline font-weight-bold"
-                  >
-                    update
-                  </span>
-                </div>
-              </div>
-            </div>
-          </router-link> -->
-
-          <!-- ITEM -->
           <router-link
-            to=""
+            :to="{ name: 'payment' }"
             @click.native="closeOffcanvas"
             href="#"
             class="navi-item"
@@ -162,7 +133,7 @@
           
           <!-- ITEM -->
           <router-link
-            to=""
+            :to="{ name: 'payment' }"
             @click.native="closeOffcanvas"
             href="#"
             class="navi-item"
@@ -186,7 +157,7 @@
           
           <!-- ITEM -->
           <router-link
-            to=""
+            :to="{ name: 'payment' }"
             @click.native="closeOffcanvas"
             href="#"
             class="navi-item"
@@ -215,7 +186,7 @@
           
           <!-- ITEM -->
           <router-link
-            to=""
+            :to="{ name: 'payment' }"
             @click.native="closeOffcanvas"
             href="#"
             class="navi-item"
@@ -242,9 +213,9 @@
             </div>
           </router-link>
 
-          <button class="btn btn-primary col-sm-12 mt-5">
+          <router-link :to="{ name: 'my-orders' }" class="btn btn-primary col-sm-12 mt-5">
             <i class="fas fa-eye"></i> Ver Más
-          </button>
+          </router-link>
 
         </div>
 
@@ -257,7 +228,7 @@
         <div>
 
           <!-- HEADING -->
-          <h5 class="mb-5">Cupones</h5>
+          <h5 class="mb-5">Cupones Activos</h5>
 
           <template v-for="(item, i) in list">
 
@@ -288,7 +259,6 @@
               <!-- TITLE -->
               <div class="d-flex flex-column flex-grow-1 mr-2">
                 <a
-                  href="#"
                   class="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1"
                 >
                   {{ item.title }}
@@ -310,9 +280,9 @@
 
           </template>
 
-          <button class="btn btn-primary col-sm-12">
+          <router-link :to="{ name: 'my-coupons' }" class="btn btn-primary col-sm-12">
             <i class="fas fa-eye"></i> Ver Más
-          </button>
+          </router-link>
 
         </div>
 

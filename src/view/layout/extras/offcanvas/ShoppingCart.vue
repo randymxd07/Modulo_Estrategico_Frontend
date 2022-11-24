@@ -50,7 +50,7 @@
 
           <!-- ITEM -->
           <template v-for="(item, i) in productsInCart">
-            <a href="#" class="navi-item" v-bind:key="i">
+            <a class="navi-item" :key="i">
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
                   <div class="symbol-label">
