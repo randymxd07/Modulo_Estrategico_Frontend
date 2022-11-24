@@ -115,8 +115,8 @@ export default {
             ],
             orderTypeOptions: [
                 { value: null, text: 'Selecciona un tipo de orden', disabled: true },
-                { value: 'Domicilio', text: 'Orden a Domicilio' },
-                { value: 'Restaurante', text: 'Orden desde el Restaurante' },
+                { value: 'Domicilio', text: 'Ordenar a Domicilio' },
+                { value: 'Restaurante', text: 'Ordenar desde el Restaurante' },
             ],
             panel: [0],
             productsInCart: [
