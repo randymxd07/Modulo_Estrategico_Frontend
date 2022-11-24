@@ -157,7 +157,7 @@
           ok-only 
           size="xl"
           id="modal-1"
-          title="Más Opciones"
+          title="Más Categorías"
         >
           
           <!-- ITEM -->
