@@ -16,6 +16,26 @@ export default new Router({
           component: () => import("@/view/pages/payment/PaymentView")
         },
         {
+          path: '/my-address',
+          name: 'my-address',
+          component: () => import("@/view/pages/addressess/MyAddresess")
+        },
+        {
+          path: '/my-orders',
+          name: 'my-orders',
+          component: () => import("@/view/pages/orders/MyOrders")
+        },
+        {
+          path: '/my-coupons',
+          name: 'my-coupons',
+          component: () => import("@/view/pages/coupons/MyCoupons")
+        },
+        {
+          path: '/redeem-coupons',
+          name: 'redeem-coupons',
+          component: () => import("@/view/pages/coupons/RedeemCoupon")
+        },
+        {
           path: "/dashboard",
           name: "dashboard",
           component: () => import("@/view/pages/Dashboard.vue")

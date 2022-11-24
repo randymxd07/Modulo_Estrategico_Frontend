@@ -1,7 +1,12 @@
 <template>
+
   <ul class="menu-nav">
+
+    <!--------------
+        DASHBOARD 
+    ---------------->
     <router-link
-      to="/dashboard"
+      :to="{ name: 'dashboard' }"
       v-slot="{ href, navigate, isActive, isExactActive }"
     >
       <li
@@ -19,8 +24,101 @@
         </a>
       </li>
     </router-link>
+    
+    <!------------------
+        MY ADDRESSESS
+    -------------------->
+    <router-link
+      :to="{ name: 'my-address' }"
+      v-slot="{ href, navigate, isActive, isExactActive }"
+    >
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
+          isActive && 'menu-item-active',
+          isExactActive && 'menu-item-active'
+        ]"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon2-location"></i>
+          <span class="menu-text">Mis Direcciones</span>
+        </a>
+      </li>
+    </router-link>
+
+    <!--------------
+        MY ORDERS
+    ---------------->
+    <router-link
+      :to="{ name: 'my-orders' }"
+      v-slot="{ href, navigate, isActive, isExactActive }"
+    >
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
+          isActive && 'menu-item-active',
+          isExactActive && 'menu-item-active'
+        ]"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon2-list-2"></i>
+          <span class="menu-text">Mis Pedidos</span>
+        </a>
+      </li>
+    </router-link>
+    
+    <!---------------
+        MY COUPONS
+    ----------------->
+    <router-link
+      :to="{ name: 'my-coupons' }"
+      v-slot="{ href, navigate, isActive, isExactActive }"
+    >
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
+          isActive && 'menu-item-active',
+          isExactActive && 'menu-item-active'
+        ]"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon2-crisp-icons"></i>
+          <span class="menu-text">Mis Cupones</span>
+        </a>
+      </li>
+    </router-link>
+
+    <!-------------------
+        REDEEM COUPONS
+    --------------------->
+    <router-link
+      :to="{ name: 'redeem-coupons' }"
+      v-slot="{ href, navigate, isActive, isExactActive }"
+    >
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[
+          isActive && 'menu-item-active',
+          isExactActive && 'menu-item-active'
+        ]"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon2-gift-1"></i>
+          <span class="menu-text">Canjear Cupon</span>
+        </a>
+      </li>
+    </router-link>
 
     <router-link
+      v-show="false"
       to="/builder"
       v-slot="{ href, navigate, isActive, isExactActive }"
     >
@@ -40,12 +138,13 @@
       </li>
     </router-link>
 
-    <li class="menu-section">
+    <li class="menu-section" v-show="false">
       <h4 class="menu-text">Components</h4>
       <i class="menu-icon flaticon-more-v2"></i>
     </li>
 
     <li
+      v-show="false"
       aria-haspopup="true"
       data-menu-toggle="hover"
       class="menu-item menu-item-submenu"
@@ -1045,6 +1144,7 @@
     </li>
 
     <li
+      v-show="false"
       aria-haspopup="true"
       data-menu-toggle="hover"
       class="menu-item menu-item-submenu"
@@ -1583,12 +1683,13 @@
       </div>
     </li>
 
-    <li class="menu-section">
+    <li class="menu-section" v-show="false">
       <h4 class="menu-text">Custom</h4>
       <i class="menu-icon flaticon-more-v2"></i>
     </li>
 
     <li
+      v-show="false"
       aria-haspopup="true"
       data-menu-toggle="hover"
       class="menu-item menu-item-submenu"
@@ -1746,6 +1847,7 @@
     </li>
 
     <li
+      v-show="false"
       aria-haspopup="true"
       data-menu-toggle="hover"
       class="menu-item menu-item-submenu"
@@ -1859,6 +1961,7 @@
     </li>
 
     <li
+      v-show="false"
       aria-haspopup="true"
       data-menu-toggle="hover"
       class="menu-item menu-item-submenu"
@@ -1916,6 +2019,7 @@
     </li>
 
     <li
+      v-show="false"
       aria-haspopup="true"
       data-menu-toggle="hover"
       class="menu-item menu-item-submenu"
@@ -1952,7 +2056,9 @@
         </ul>
       </div>
     </li>
+    
   </ul>
+
 </template>
 
 <script>
