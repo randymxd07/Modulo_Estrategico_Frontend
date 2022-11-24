@@ -1,4 +1,5 @@
 <template>
+
     <main>
 
         <h1 class="mb-10">Mis Direcciones</h1>
@@ -47,6 +48,7 @@
         </v-app>
 
     </main>
+    
 </template>
 
 <script>
