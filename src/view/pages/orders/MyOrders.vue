@@ -2,7 +2,7 @@
 
   <main>
 
-    <h1 class="mb-10">Mis Ordenes</h1>
+    <h1 class="mb-10">Mis Pedidos</h1>
 
     <v-app>
 
