@@ -50,7 +50,7 @@
 
           <!-- ITEM -->
           <template v-for="(item, i) in productsInCart">
-            <a class="navi-item" :key="i">
+            <a class="navi-item mb-5" :key="i">
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
                   <div class="symbol-label">
@@ -69,6 +69,14 @@
                   <i class="fas fa-trash-alt"></i>
                 </button>
               </div>
+
+              <section class="card p-3">
+                <div class="row justify-content-center">
+                  <b-button variant="primary"><b>-</b></b-button>
+                  <h1 class="mx-10 text-dark">1</h1>
+                  <b-button variant="primary"><b>+</b></b-button>
+                </div>
+              </section>
             </a>
           </template>
 
