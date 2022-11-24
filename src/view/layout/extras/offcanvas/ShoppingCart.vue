@@ -8,7 +8,7 @@
     <div id="kt_quick_notifications_toggle">
       <div class="btn btn-clean">
         <i class="fas fa-shopping-cart"></i>
-        <b-badge variant="light">{{list1.length}}</b-badge>
+        <b-badge variant="light">{{productsInCart.length}}</b-badge>
       </div>
     </div>
 
@@ -45,9 +45,11 @@
 
       <!-- CONTENT -->
       <div class="offcanvas-content pr-5 mr-n5">
+
         <div class="navi navi-icon-circle navi-spacer-x-0">
-          <template v-for="(item, i) in list1">
-            <!--begin::Item-->
+
+          <!-- ITEM -->
+          <template v-for="(item, i) in productsInCart">
             <a href="#" class="navi-item" v-bind:key="i">
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
@@ -68,16 +70,26 @@
                 </button>
               </div>
             </a>
-            <!--end::Item-->
           </template>
+
           <hr>
+
+          <!-- TOTAL PAYMENT -->
           <section class="my-5">
             <h3>Total a Pagar: <span>RD$ {{getTotalAccount()}}</span></h3>
           </section>
-          <button type="button" class="col-sm-12 btn btn-lg btn-outline-primary">
-            <i class="fas fa-money-bill-alt"></i> Pagar
-          </button>
+
+          <!-- PAY BUTTON -->
+          <router-link 
+            :to="{ name: 'payment' }" 
+            type="button" 
+            class="col-sm-12 btn btn-lg btn-outline-primary"
+          >
+            <i class="fas fa-money-bill-alt"></i> Ir a Pagar
+          </router-link>
+
         </div>
+
       </div>
 
     </div>
@@ -93,7 +105,7 @@ export default {
   name: "KTQuickPanel",
   data() {
     return {
-      list1: [
+      productsInCart: [
         {
           id: '',
           name: "Pizza de Peperoni",
@@ -122,7 +134,7 @@ export default {
   methods: {
     getTotalAccount(){
       var sum = 0;
-      this.list1.forEach(ele => {
+      this.productsInCart.forEach(ele => {
         sum += ele.price;
       });
       return sum;

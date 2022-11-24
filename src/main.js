@@ -30,6 +30,7 @@ import "@/core/plugins/metronic";
 import "@/core/plugins/treeselect";
 import "@mdi/font/css/materialdesignicons.css";
 import "@/core/plugins/vue-carousel-3d.js";
+import "@/core/plugins/vue-infinite-scroll.js"
 
 // API service init
 ApiService.init();

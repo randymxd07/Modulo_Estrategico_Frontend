@@ -11,6 +11,11 @@ export default new Router({
       component: () => import("@/view/layout/Layout"),
       children: [
         {
+          path: '/payment',
+          name: 'payment',
+          component: () => import("@/view/pages/payment/PaymentView")
+        },
+        {
           path: "/dashboard",
           name: "dashboard",
           component: () => import("@/view/pages/Dashboard.vue")
