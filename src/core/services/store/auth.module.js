@@ -1,5 +1,6 @@
 import ApiService from "@/core/services/api.service";
 import JwtService from "@/core/services/jwt.service";
+// import Swal from "sweetalert2";
 
 // action types
 export const VERIFY_AUTH = "verifyAuth";
@@ -34,7 +35,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.post("login", credentials)
         .then(({ data }) => {
-          // console.log("Here what post returns", data);
           context.commit(SET_AUTH, data);
           resolve(data);
         })
@@ -48,7 +48,7 @@ const actions = {
   },
   [REGISTER](context, credentials) {
     return new Promise(resolve => {
-      ApiService.post("login", credentials)
+      ApiService.post("register", credentials)
         .then(({ data }) => {
           context.commit(SET_AUTH, data);
           resolve(data);
@@ -87,6 +87,7 @@ const mutations = {
     state.errors = error;
   },
   [SET_AUTH](state, user) {
+    console.log(user);
     state.isAuthenticated = true;
     state.user = user;
     state.errors = {};

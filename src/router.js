@@ -11,6 +11,21 @@ export default new Router({
       component: () => import("@/view/layout/Layout"),
       children: [
         {
+          path: '/create-product',
+          name: 'create-product',
+          component: () => import('@/view/pages/borrar/CreateProduct.vue')
+        },
+        {
+          path: '/create-offer',
+          name: 'create-offer',
+          component: () => import('@/view/pages/borrar/CreateOffer.vue')
+        },
+        {
+          path: '/order-assigment',
+          name: 'order-assigment',
+          component: () => import('@/view/pages/borrar/OrderAssigmentToDelivery.vue')
+        },
+        {
           path: '/payment',
           name: 'payment',
           component: () => import("@/view/pages/payment/PaymentView")

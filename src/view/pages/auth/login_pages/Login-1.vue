@@ -208,19 +208,19 @@
               </div> -->
               <div class="form-group d-flex flex-wrap pb-lg-0 pb-3">
                 <button
-                  ref="kt_login_signup_submit"
-                  class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4"
-                  style="width:150px;"
-                >
-                  <i class="fas fa-save"></i> Guardar
-                </button>
-                <button
                   type="button"
                   id="kt_login_signup_cancel"
-                  class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3"
+                  class="col-sm-12 col-md-5 btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3"
                   @click="showForm('signin')"
                 >
                   <i class="fas fa-times"></i> Cancelar
+                </button>
+                <div class="col-sm-12 col-md-2"></div>
+                <button
+                  ref="kt_login_signup_submit"
+                  class="col-sm-12 col-md-5 btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3"
+                >
+                  <i class="fas fa-save"></i> Guardar
                 </button>
               </div>
             </form>
@@ -325,8 +325,8 @@ export default {
       state: "signin",
       // Remove this dummy login info
       form: {
-        email: "admin@demo.com",
-        password: "demo"
+        email: "randy0624@gmail.com",
+        password: "123456"
       }
     };
   },
@@ -502,6 +502,7 @@ export default {
       this.fv1.validate();
 
       this.fv1.on("core.form.valid", () => {
+        const fullname = this.$refs.fullname.value;
         const email = this.$refs.remail.value;
         const password = this.$refs.rpassword.value;
 
@@ -517,10 +518,12 @@ export default {
           // send register request
           this.$store
             .dispatch(REGISTER, {
+              fullname: fullname,
               email: email,
               password: password
             })
-            .then(() => this.$router.push({ name: "dashboard" }));
+            .then(() => this.$router.push({ name: "dashboard" }))
+            .catch({});
 
           submitButton.classList.remove(
             "spinner",
