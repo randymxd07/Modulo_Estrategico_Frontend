@@ -67,6 +67,7 @@ const actions = {
         })
         .catch(({ response }) => {
           context.commit(SET_ERROR, response.data.errors);
+          context.commit(PURGE_AUTH);
         });
     } else {
       context.commit(PURGE_AUTH);
@@ -86,12 +87,13 @@ const mutations = {
   [SET_ERROR](state, error) {
     state.errors = error;
   },
-  [SET_AUTH](state, user) {
-    console.log(user);
+  [SET_AUTH](state, data) {
+    console.log(data);
     state.isAuthenticated = true;
-    state.user = user;
+    state.data = data;
     state.errors = {};
-    JwtService.saveToken(state.user.token);
+    JwtService.saveToken(state.data.token);
+    localStorage.setItem("user", JSON.stringify(state.data.user));
   },
   [SET_PASSWORD](state, password) {
     state.user.password = password;
@@ -100,7 +102,9 @@ const mutations = {
     state.isAuthenticated = false;
     state.user = {};
     state.errors = {};
-    JwtService.destroyToken();
+    localStorage.clear();
+    // localStorage.removeItem("user");
+    // JwtService.destroyToken();
   }
 };
 

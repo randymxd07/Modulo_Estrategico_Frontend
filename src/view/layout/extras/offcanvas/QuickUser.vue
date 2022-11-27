@@ -62,7 +62,7 @@
               href="#"
               class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"
             >
-              Randy Rafael Martinez Cepeda
+              {{user.fullname}}
             </a>
 
             <!-- <div class="text-muted mt-1">Application Developer</div> -->
@@ -81,7 +81,7 @@
                     </span>
                   </span>
                   <span class="navi-text text-muted text-hover-primary">
-                    randym0624@gmail.com
+                    {{user.email}}
                   </span>
                 </span>
               </a>
@@ -309,6 +309,7 @@ export default {
   name: "KTQuickUser",
   data() {
     return {
+      user: {},
       list: [
         {
           title: "Cupon de Hamburguesas Ricas",
@@ -343,12 +344,13 @@ export default {
   mounted() {
     // Init Quick User Panel
     KTLayoutQuickUser.init(this.$refs["kt_quick_user"]);
+    this.user = JSON.parse(localStorage.getItem("user"));
   },
   methods: {
     onLogout() {
       this.$store
         .dispatch(LOGOUT)
-        .then(() => this.$router.push({ name: "login" }));
+        .then(() => this.$router.go());
     },
     closeOffcanvas() {
       new KTOffcanvas(KTLayoutQuickUser.getElement()).hide();
