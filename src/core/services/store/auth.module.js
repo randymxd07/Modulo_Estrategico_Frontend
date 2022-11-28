@@ -1,6 +1,7 @@
 import ApiService from "@/core/services/api.service";
 import JwtService from "@/core/services/jwt.service";
 import restaurantApi from "@/core/services/api/restaurantApi";
+// import Swal from "sweetalert2";
 
 // action types
 export const VERIFY_AUTH = "verifyAuth";
@@ -58,14 +59,17 @@ const actions = {
         });
     });
   },
-  async [VERIFY_AUTH](context) {
-    ApiService.setHeader();
-    await restaurantApi.get("verify")
-      .then(() => {})
-      .catch(({ response }) => {
-        context.commit(SET_ERROR, response.data.errors);
-        context.commit(PURGE_AUTH);
-      });
+  [VERIFY_AUTH](context) {
+    if (JwtService.getToken()) {
+      ApiService.setHeader();
+      restaurantApi.get("verify")
+        .then(() => {})
+        .catch(() => {
+          localStorage.clear();
+        });
+    } else {
+      context.commit(PURGE_AUTH);
+    }
   },
   [UPDATE_PASSWORD](context, payload) {
     const password = payload;
