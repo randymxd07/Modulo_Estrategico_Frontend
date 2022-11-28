@@ -103,8 +103,6 @@ const mutations = {
     state.user = {};
     state.errors = {};
     localStorage.clear();
-    // localStorage.removeItem("user");
-    // JwtService.destroyToken();
   }
 };
 

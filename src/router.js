@@ -13,17 +13,17 @@ export default new Router({
         {
           path: '/create-product',
           name: 'create-product',
-          component: () => import('@/view/pages/borrar/CreateProduct.vue')
+          component: () => import('@/view/pages/other_views/CreateProduct.vue')
         },
         {
           path: '/create-offer',
           name: 'create-offer',
-          component: () => import('@/view/pages/borrar/CreateOffer.vue')
+          component: () => import('@/view/pages/other_views/CreateOffer.vue')
         },
         {
           path: '/order-assigment',
           name: 'order-assigment',
-          component: () => import('@/view/pages/borrar/OrderAssigmentToDelivery.vue')
+          component: () => import('@/view/pages/other_views/OrderAssigmentToDelivery.vue')
         },
         {
           path: '/payment',
