@@ -81,20 +81,17 @@
                             </b-form-group>
                         </article>
 
-                        <article class="col-sm-12 col-md-6">
-                            <b-form-group 
-                                id="estimated_time" 
-                                label="Tiempo Estimado de Preparación" 
-                                label-for="estimated_time"
-                            >
-                                <b-form-timepicker 
-                                    v-model="estimated_time" 
-                                    locale="de" 
-                                    show-seconds
-                                    id="estimated_time"
-                                    placeholder="Selecciona un tiempo estimado"
-                                ></b-form-timepicker>
-                            </b-form-group>
+                        <article class="col-sm-12 col-md-6 mb-5">
+                            <label class="form-label" for="estimated_time">
+                                Tiempo Estimado de Preparación
+                            </label>
+                            <b-form-timepicker
+                                v-model="estimated_time" 
+                                locale="de" 
+                                show-seconds
+                                id="estimated_time"
+                                placeholder="Selecciona un tiempo estimado"
+                            ></b-form-timepicker>
                         </article>
                     </div>
 
@@ -212,11 +209,12 @@ export default {
                 status: true,
             };
 
-            console.log(JSON.stringify(json, null, 3));
+            // console.log(JSON.stringify(json, null, 3));
 
             await restaurantApi.post('products', json)
             .then(data => {
                 console.log(data);
+                this.$router.go();
             })
             .catch(err => {
                 console.error(err.response.data);
@@ -229,7 +227,8 @@ export default {
             this.description = '';
             this.product_category_id = null;
             this.price = '';
-            this.image_url = '';
+            this.image_url = null;
+            this.image_src = null;
             this.estimated_time = '';
             this.score = 0;
         },

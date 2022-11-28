@@ -254,7 +254,7 @@ export default {
   },
 
   async created(){
-    await restaurantApi.get('product-categories')
+    await restaurantApi.get('product-categories?number=7')
     .then(({data}) => {
       data.data.forEach(ele => {
         this.categories.push(ele);

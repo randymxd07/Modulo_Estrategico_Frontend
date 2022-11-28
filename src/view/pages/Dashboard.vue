@@ -130,7 +130,8 @@
 import { SET_BREADCRUMB } from "@/core/services/store/breadcrumbs.module";
 import ListWidget1 from "@/view/content/widgets/list/Widget1.vue";
 import offerImages from "@/core/data/offerImages.js";
-import products from "@/core/data/products.js";
+// import products from "@/core/data/products.js";
+import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
 
@@ -143,8 +144,22 @@ export default {
   data(){
     return{
       offerImages,
-      products,
+      products: [],
     }
+  },
+
+  async created(){
+    
+    await restaurantApi.get('products')
+    .then(({data}) => {
+      data.data.forEach(element => {
+        this.products.push(element);
+      });
+    })
+    .catch(({response}) => {
+      console.error(response.data)
+    })
+
   },
 
   mounted() {

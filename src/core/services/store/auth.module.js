@@ -1,6 +1,6 @@
 import ApiService from "@/core/services/api.service";
 import JwtService from "@/core/services/jwt.service";
-import restaurantApi from "@/core/services/api/restaurantApi";
+// import restaurantApi from "@/core/services/api/restaurantApi";
 // import Swal from "sweetalert2";
 
 // action types
@@ -62,11 +62,11 @@ const actions = {
   [VERIFY_AUTH](context) {
     if (JwtService.getToken()) {
       ApiService.setHeader();
-      restaurantApi.get("verify")
-        .then(() => {})
-        .catch(() => {
-          localStorage.clear();
-        });
+      // restaurantApi.get("verify")
+      //   .then(() => {})
+      //   .catch(() => {
+      //     localStorage.clear();
+      //   });
     } else {
       context.commit(PURGE_AUTH);
     }
