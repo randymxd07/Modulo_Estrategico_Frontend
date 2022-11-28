@@ -20,7 +20,7 @@
                         ref="image_url"
                         type="file"
                         id="image_url"
-                        accept=".jpg, .jpeg, .png"
+                        accept=".jpg, .jpeg, .png, .webp"
                         @change="uploadImage($event)"
                         class="form-control form-control-lg form-control-solid"
                     />
@@ -28,8 +28,8 @@
                         <img
                             alt="image"
                             class="img-fluid"
-                            v-if="image_url"
-                            :src="image_url"
+                            v-if="image_src"
+                            :src="image_src"
                         />
                         <div
                             v-else
@@ -139,7 +139,9 @@ import {VMoney} from 'v-money';
 import restaurantApi from "@/core/services/api/restaurantApi";
 
 export default {
+
     directives: {money: VMoney},
+
     data(){
         return{
             name: '',
@@ -147,6 +149,7 @@ export default {
             product_category_id: null,
             price: '',
             image_url: null,
+            image_src: null,
             estimated_time: '',
             score: 0,
             productCategories: [
@@ -159,6 +162,7 @@ export default {
             },
         }
     },
+
     async created(){
         await restaurantApi.get('product-categories')
         .then(({data}) => {
@@ -176,9 +180,23 @@ export default {
 
     methods: {
 
-        // TODO: MANDAR LA IMAGEN EN BASE64 //
         uploadImage($event){
-            this.image_url = $event.target.files[0];
+
+            const file = $event.target.files[0];
+
+            this.image_src = URL.createObjectURL(file);
+
+            const reader = new FileReader()
+
+            let rawImg;
+
+            reader.onloadend = () => {
+                rawImg = reader.result.replace("webp", "png").replace("jpeg", "png");
+                this.image_url = rawImg;
+            }
+
+            reader.readAsDataURL(file);
+
         },
 
         async onSubmit(){
@@ -191,16 +209,12 @@ export default {
                 image_url: this.image_url,
                 estimated_time: this.estimated_time,
                 score: 0,
-                status: 1,
+                status: true,
             };
 
-            // console.log(JSON.stringify(json, null, 3));
+            console.log(JSON.stringify(json, null, 3));
 
-            await restaurantApi.post('products', json, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
+            await restaurantApi.post('products', json)
             .then(data => {
                 console.log(data);
             })
@@ -223,6 +237,7 @@ export default {
     },
 
 }
+
 </script>
 
 <style>
