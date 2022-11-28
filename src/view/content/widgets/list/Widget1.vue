@@ -10,6 +10,8 @@
 
       <!-- ITEM: BURGERS -->
       <li
+        v-for="(data, index) in categories"
+        :key="index"
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
         <a
@@ -18,17 +20,17 @@
           href="#tab_forms_widget_1"
         >
           <span class="nav-icon py-2 w-auto">
-            <img width="40px" height="40px" src="assets\Hamburguesa.png" alt="">
+            <img width="40px" height="40px" :src="'assets/'+data.name+'.png'" alt="">
           </span>
           <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
-            Hamburguesas
+            {{data.name}}
           </span
           >
         </a>
       </li>
       
       <!-- ITEM: PIZZAS -->
-      <li
+      <!-- <li
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
         <a
@@ -37,17 +39,17 @@
           href="#tab_forms_widget_2"
         >
           <span class="nav-icon py-2 w-auto">
-            <img width="40px" height="40px" src="assets\Pizza.png" alt="">
+            <img width="40px" height="40px" src="assets/Pizza.png" alt="">
           </span>
           <span
             class="nav-text font-size-lg py-2 font-weight-bolder text-center">
             Pizzas
           </span>
         </a>
-      </li>
+      </li> -->
 
       <!-- ITEM: CHICKEN -->
-      <li
+      <!-- <li
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
         <a
@@ -62,10 +64,10 @@
             Pollo
           </span>
         </a>
-      </li>
+      </li> -->
 
       <!-- ITEM: DRINKS -->
-      <li
+      <!-- <li
         class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0"
       >
         <a
@@ -80,10 +82,10 @@
             Bebidas
           </span>
         </a>
-      </li>
+      </li> -->
 
       <!-- ITEM: SANDWICH -->
-      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
+      <!-- <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
           data-toggle="pill"
@@ -96,10 +98,10 @@
             Sandwiches
           </span>
         </a>
-      </li>
+      </li> -->
       
       <!-- ITEM: DESSERTS -->
-      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
+      <!-- <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
           data-toggle="pill"
@@ -112,10 +114,10 @@
             Postres
           </span>
         </a>
-      </li>
+      </li> -->
       
       <!-- ITEM: SEAFOOD -->
-      <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
+      <!-- <li class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3">
         <a
           class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
           data-toggle="pill"
@@ -128,7 +130,7 @@
             Mariscos
           </span>
         </a>
-      </li>
+      </li> -->
 
       <!-----------------------
           ITEM: MORE OPTIONS 
@@ -206,10 +208,16 @@
 </template>
 
 <script>
+
+import restaurantApi from "@/core/services/api/restaurantApi.js";
+
 export default {
+
   name: "widget-1",
+
   data() {
     return {
+      categories: [],
       list: [
         {
           title: "Top Authors",
@@ -243,6 +251,19 @@ export default {
         }
       ]
     };
-  }
+  },
+
+  async created(){
+    await restaurantApi.get('product-categories')
+    .then(({data}) => {
+      data.data.forEach(ele => {
+        this.categories.push(ele);
+      });
+    })
+    .catch(err => {
+      console.error(err.response.data);
+    });
+  },
+  
 };
 </script>
