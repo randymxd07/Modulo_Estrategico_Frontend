@@ -15,7 +15,28 @@
         role="tablist"
       >
 
-        <!-- ITEM: BURGERS -->
+        <!-- ITEM: ALL -->
+        <li
+            @click="getProducts"
+            class="nav-item d-flex col flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0 cursor-pointer"
+        >
+          <a
+            class="nav-link border py-10 d-flex flex-grow-1 rounded flex-column align-items-center"
+            data-toggle="pill"
+          >
+            <span class="nav-icon py-2 w-auto">
+              <span class="svg-icon svg-icon-3x">
+                <inline-svg src="media/svg/icons/Layout/Layout-4-blocks.svg" />
+              </span>
+            </span>
+            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">
+             Todas
+            </span
+            >
+          </a>
+        </li>
+
+        <!-- ITEMS -->
         <li
             @click="getProductsByCategory(data)"
             v-for="(data, index) in categories"
@@ -48,9 +69,7 @@
             data-toggle="pill"
           >
             <span class="nav-icon py-2 w-auto">
-              <span class="svg-icon svg-icon-3x">
-                <inline-svg src="media/svg/icons/Layout/Layout-4-blocks.svg" />
-              </span>
+              <img width="40px" height="40px" src="assets/List.png" alt="">
             </span>
             <span class="nav-text font-size-lg py-2 font-weight-bolder text-center">
               Más Opciones
@@ -116,7 +135,7 @@
 <script>
 
 import restaurantApi from "@/core/services/api/restaurantApi.js";
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
 
@@ -144,6 +163,8 @@ export default {
 
     ...mapMutations("productsStore", ["setProducts"]),
 
+    ...mapActions("productsStore", ["getProducts"]),
+
     async getProductsByCategory(data){
 
         await restaurantApi.get("products/byCategory/"+data.id)
@@ -152,7 +173,10 @@ export default {
         })
         .catch(({response}) => {
             console.error(response.data);                  
-
+            if(response.data.status == 401){
+                localStorage.clear();
+                this.$router.go();
+            }
         })
 
     },

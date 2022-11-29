@@ -4,8 +4,6 @@
 
 export const setProducts = ( state, products ) => {
 
-    console.log(products);
-
     state.products = [];
     
     products.forEach(element => {
