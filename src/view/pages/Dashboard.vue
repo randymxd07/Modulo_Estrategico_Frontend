@@ -9,7 +9,7 @@
       <OffersList/>
 
       <!-- CATEGORIES -->
-      <ListWidget1/>
+      <ProductCategoriesList/>
 
       <!-- PRODUCTS -->
       <ProductsList/>
@@ -24,18 +24,18 @@
 
 import { SET_BREADCRUMB } from "@/core/services/store/breadcrumbs.module";
 
-import ListWidget1 from '@/view/content/widgets/list/Widget1';
-import ProductsList from "@/view/pages/components/ProductsList";
 import OffersList from "@/view/pages/components/OffersList";
+import ProductCategoriesList from '@/view/pages/components/ProductCategoriesList';
+import ProductsList from "@/view/pages/components/ProductsList";
 
 export default {
 
   name: "dashboard",
 
   components: {
-    ListWidget1,
-    ProductsList,
     OffersList,
+    ProductCategoriesList,
+    ProductsList,
   },
   
   mounted() {
