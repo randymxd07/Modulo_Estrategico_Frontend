@@ -130,8 +130,8 @@
 import { SET_BREADCRUMB } from "@/core/services/store/breadcrumbs.module";
 import ListWidget1 from "@/view/content/widgets/list/Widget1.vue";
 import offerImages from "@/core/data/offerImages.js";
-// import products from "@/core/data/products.js";
-import restaurantApi from '@/core/services/api/restaurantApi.js';
+
+import { mapActions, mapState } from 'vuex';
 
 export default {
 
@@ -141,36 +141,27 @@ export default {
     ListWidget1,
   },
 
+  computed: {
+    ...mapState("productsStore", ["products"])
+  },
+
   data(){
     return{
       offerImages,
-      products: [],
     }
   },
 
-  async created(){
-    
-    await restaurantApi.get('products')
-    .then(({data}) => {
-      data.data.forEach(element => {
-        this.products.push(element);
-      });
-    })
-    .catch(({response}) => {
-      console.error(response.data)
-      if(response.data.status == 401){
-        localStorage.clear();
-        this.$router.go();
-      }
-    })
+  methods: {
+    ...mapActions("productsStore", ["getProducts"])
+  },
 
+  async created(){
+    await this.getProducts();
   },
 
   mounted() {
     this.$store.dispatch(SET_BREADCRUMB, [{ title: "Dashboard" }]);
   },
-
-  methods: {}
 
 };
 
