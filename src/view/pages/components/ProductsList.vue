@@ -6,7 +6,7 @@
     <div class="row">
 
       <!-- CARDS -->
-      <article class="col-sm-12 col-md-3 mb-5" v-for="data in products" :key="data">
+      <article class="col-sm-12 col-md-3 mb-5" v-for="data in products" :key="data.id">
 
         <!-- CARD -->
         <div class="card">
@@ -44,10 +44,12 @@
               </h5>
 
               <b-form-rating
+                v-model="data.score"
+                :value="data.score"
+                @change="setProductScore(data.id, data.score)"
                 show-clear
                 variant="warning" 
                 inline 
-                :value="data.score"
               ></b-form-rating>
 
               <!-- ESTIMATED TIME -->
@@ -82,15 +84,28 @@
 <script>
 
 import { mapActions, mapState } from 'vuex';
+import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
 
     computed: {
-        ...mapState("productsStore", ["products"])
+      ...mapState("productsStore", ["products"])
     },
 
     methods: {
-        ...mapActions("productsStore", ["getProducts"])
+
+      ...mapActions("productsStore", ["getProducts"]),
+
+      async setProductScore(id, score){
+        await restaurantApi.put('products/putScore/'+id, {score: score})
+        .then(({data}) => {
+          console.log(data.data);
+        })
+        .catch(({response}) => {
+          console.error(response.data);
+        });
+      },
+
     },
 
     async created(){
