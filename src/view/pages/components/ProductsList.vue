@@ -44,6 +44,7 @@
               </h5>
 
               <b-form-rating
+                show-clear
                 variant="warning" 
                 inline 
                 :value="data.score"
