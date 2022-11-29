@@ -158,8 +158,10 @@ export default {
     })
     .catch(({response}) => {
       console.error(response.data)
-      if(response.data.status == 401)
+      if(response.data.status == 401){
         localStorage.clear();
+        this.$router.go();
+      }
     })
 
   },
