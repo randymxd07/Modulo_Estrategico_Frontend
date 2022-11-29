@@ -216,8 +216,10 @@ export default {
                 console.log(data);
                 this.$router.go();
             })
-            .catch(err => {
-                console.error(err.response.data);
+            .catch(({response}) => {
+                console.error(response.data);
+                if(response.data.status == 401)
+                    localStorage.clear();
             })
 
         },
