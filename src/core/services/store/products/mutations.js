@@ -14,31 +14,71 @@ export const setProducts = ( state, products ) => {
 
 export const setProductsToCart = ( state, product ) => {
 
-    state.cart.push(product);
+    if(state.cart.length != 0) {
+
+        let productExists = false;
+        
+        state.cart.forEach(ele => {
+            if(product.id == ele.id){
+                productExists = true;
+            }
+        });
+        
+        if(!productExists) {
+            state.cart.push(product);
+        }
+        
+    } else {
+        
+        state.cart.push(product);
+
+    }
+
+    setLocalStorageCartProducts(product);
+
+}
+
+export const setLocalStorageCartProducts = ( product ) => {
 
     let localCart = [];
 
     const items = JSON.parse(localStorage.getItem('cart'));
 
-    if(!items){
+    if(items){
 
-        localCart.push(product);
+        let productExists = false;
+
+        items.forEach(ele => {
+
+            if(product.id == ele.id){
+
+                productExists = true;
+
+            } else {
+
+                productExists = false;
+
+                localCart.push(ele);
+
+            }
+            
+        });
         
-        localStorage.setItem('cart', JSON.stringify(localCart));
+        if(!productExists) {
+
+            localCart.push(product);
+        
+            localStorage.setItem('cart', JSON.stringify(localCart));
+
+        }
 
     } else {
-
-        items.forEach(element => {
-            localCart.push(element);
-        });
 
         localCart.push(product);
         
         localStorage.setItem('cart', JSON.stringify(localCart));
 
     }
-
-    console.log(localCart);
 
 }
 

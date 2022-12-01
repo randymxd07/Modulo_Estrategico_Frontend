@@ -18,7 +18,7 @@
     <div
       id="kt_quick_notifications"
       ref="kt_quick_notifications"
-      class="offcanvas offcanvas-right p-10"
+      class="offcanvas offcanvas-right p-9"
     >
 
       <!-- HEADING -->
@@ -53,7 +53,7 @@
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
                   <div class="symbol-label">
-                    <i class="icon-lg" v-bind:class="item.icon" />
+                    <i class="icon-lg flaticon-shopping-basket text-primary" />
                   </div>
                 </div>
                 <div class="navi-text">
@@ -122,7 +122,7 @@ export default {
   },
 
   mounted() {
-    // Init Quick Offcanvas Panel
+
     KTLayoutQuickNotifications.init(this.$refs["kt_quick_notifications"]);
     
     if(this.cart.length == 0){
@@ -144,7 +144,7 @@ export default {
     getTotalAccount(){
       var sum = 0;
       this.cart.forEach(ele => {
-        sum += ele.price;
+        sum += +ele.price;
       });
       return sum;
     },
