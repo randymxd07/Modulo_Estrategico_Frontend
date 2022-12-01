@@ -18,7 +18,7 @@
             <img
               width="600"
               height="150"
-              :src="data.image_url" 
+              :src="data.element.image_url" 
               class="card-img-top" 
               alt="..."
             >
@@ -26,7 +26,7 @@
             <!-- PRICE -->
             <div class="card-img-overlay">
               <b class="bg-primary rounded card-title p-3">
-                RD${{data.price}}
+                RD${{data.element.price}}
               </b>
             </div>
 
@@ -40,13 +40,13 @@
 
               <!-- PRODUCT NAME -->
               <h5 class="card-title mb-3">
-                {{data.name}}
+                {{data.element.name}}
               </h5>
 
               <b-form-rating
-                v-model="data.score"
-                :value="data.score"
-                @change="setProductScore(data.id, data.score)"
+                v-model="data.element.score"
+                :value="data.element.score"
+                @change="setProductScore(data.element.id, data.element.score)"
                 show-clear
                 variant="warning" 
                 inline 
@@ -54,7 +54,7 @@
 
               <!-- ESTIMATED TIME -->
               <p class="mt-3">
-                Tiempo Estimado: <span class="text-primary">{{data.estimated_time}}</span>
+                Tiempo Estimado: <span class="text-primary">{{data.element.estimated_time}}</span>
               </p>
 
             </article>
@@ -99,6 +99,11 @@ export default {
     ...mapMutations("productsStore", ["setProductsToCart"]),
 
     async setProductScore(id, score){
+
+      if(score == null) {
+        score = 0;
+      }
+
       await restaurantApi.put('products/putScore/'+id, {score: score})
       .then(({data}) => {
         console.log(data.data);

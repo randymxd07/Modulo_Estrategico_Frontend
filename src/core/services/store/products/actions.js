@@ -8,7 +8,20 @@ export const getProducts = async ({ commit }) => {
     
     await restaurantApi.get('products')
     .then(({data}) => {
-      commit("setProducts", data.data);
+      
+      let products = [];
+      let json;
+
+      data.data.forEach(element => {
+        json = {
+          element,
+          quantity: 0
+        }
+        products.push(json);
+      });
+      
+      commit("setProducts", products);
+
     })
     .catch(({response}) => {
       console.error(response.data)

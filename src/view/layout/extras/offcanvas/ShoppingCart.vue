@@ -70,11 +70,20 @@
               </div>
 
               <section class="card p-3">
+
                 <div class="row justify-content-center">
+
+                  <!-- MINUS BUTTON -->
                   <b-button variant="primary"><b>-</b></b-button>
+
+                  <!-- QUANTITY -->
                   <h1 class="mx-10 text-dark">1</h1>
+
+                  <!-- PLUS BUTTON -->
                   <b-button variant="primary"><b>+</b></b-button>
+
                 </div>
+
               </section>
             </a>
           </template>
