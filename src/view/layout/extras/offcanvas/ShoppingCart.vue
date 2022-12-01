@@ -58,10 +58,10 @@
                 </div>
                 <div class="navi-text">
                   <div class="font-weight-bold font-size-lg">
-                    {{ item.name }}
+                    {{ item.element.name }}
                   </div>
                   <div class="text-muted">
-                    RD$ {{ item.price }}
+                    RD$ {{ item.element.price }}
                   </div>
                 </div>
                 <button class="btn btn-outline-primary">

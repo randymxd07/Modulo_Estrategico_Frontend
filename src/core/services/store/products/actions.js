@@ -15,7 +15,7 @@ export const getProducts = async ({ commit }) => {
       data.data.forEach(element => {
         json = {
           element,
-          quantity: 0
+          quantity: 1
         }
         products.push(json);
       });

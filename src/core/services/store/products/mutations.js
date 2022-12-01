@@ -19,7 +19,7 @@ export const setProductsToCart = ( state, product ) => {
         let productExists = false;
         
         state.cart.forEach(ele => {
-            if(product.id == ele.id){
+            if(product.element.id == ele.element.id){
                 productExists = true;
             }
         });
@@ -29,7 +29,7 @@ export const setProductsToCart = ( state, product ) => {
         }
         
     } else {
-        
+
         state.cart.push(product);
 
     }
@@ -50,7 +50,7 @@ export const setLocalStorageCartProducts = ( product ) => {
 
         items.forEach(ele => {
 
-            if(product.id == ele.id){
+            if(product.element.id == ele.element.id){
 
                 productExists = true;
 

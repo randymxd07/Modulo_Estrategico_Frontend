@@ -6,7 +6,7 @@
     <div class="row">
 
       <!-- CARDS -->
-      <article class="col-sm-12 col-md-3 mb-5" v-for="data in products" :key="data.id">
+      <article class="col-sm-12 col-md-3 mb-5" v-for="data in products" :key="data.element.id">
 
         <!-- CARD -->
         <div class="card">
@@ -65,7 +65,7 @@
             </p>
 
             <!-- ADD CART BUTTON -->
-            <button @click="addToCart(data)" class="col-sm-12 btn btn-primary">
+            <button @click="setProductsToCart(data)" class="col-sm-12 btn btn-primary">
               <i class="fas fa-cart-plus"></i> Agregar al Carrito
             </button>
 
@@ -112,12 +112,6 @@ export default {
         console.error(response.data);
       });
     },
-
-    addToCart(data){
-
-      this.setProductsToCart(data);
-
-    }
 
   },
 
