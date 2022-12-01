@@ -47,8 +47,12 @@
 
         <div class="navi navi-icon-circle navi-spacer-x-0">
 
+          <b-alert v-if="cart.length == 0" class="p-5 text-center h4" variant="secondary" show fade>
+            No hay productos agregados
+          </b-alert>
+
           <!-- ITEM -->
-          <template v-for="(item, i) in cart">
+          <template v-else v-for="(item, i) in cart">
             <a class="navi-item mb-5" :key="i">
               <div class="navi-link rounded">
 
