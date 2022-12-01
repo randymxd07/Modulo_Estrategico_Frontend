@@ -167,17 +167,26 @@ export default {
 
     async getProductsByCategory(data){
 
-        await restaurantApi.get("products/byCategory/"+data.id)
-        .then(({data}) => {
-            this.setProducts(data.data);
-        })
-        .catch(({response}) => {
-            console.error(response.data);                  
-            if(response.data.status == 401){
-                localStorage.clear();
-                this.$router.go();
-            }
-        })
+      await restaurantApi.get("products/byCategory/"+data.id)
+      .then(({data}) => {
+        let products = [];
+        let json;
+        data.data.forEach(element => {
+          json = {
+            element,
+            quantity: 1
+          }
+          products.push(json);
+        });
+        this.setProducts(products);
+      })
+      .catch(({response}) => {
+        console.error(response.data);                  
+        if(response.data.status == 401){
+          localStorage.clear();
+          this.$router.go();
+        }
+      })
 
     },
 
