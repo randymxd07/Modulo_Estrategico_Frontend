@@ -74,13 +74,17 @@
                 <div class="row justify-content-center">
 
                   <!-- MINUS BUTTON -->
-                  <b-button variant="primary"><b>-</b></b-button>
+                  <b-button @click="decrement(item)" variant="primary">
+                    <b>-</b>
+                  </b-button>
 
                   <!-- QUANTITY -->
-                  <h1 class="mx-10 text-dark">1</h1>
+                  <h1 class="mx-10 text-dark">{{item.quantity}}</h1>
 
                   <!-- PLUS BUTTON -->
-                  <b-button variant="primary"><b>+</b></b-button>
+                  <b-button @click="increment(item)" variant="primary">
+                    <b>+</b>
+                  </b-button>
 
                 </div>
 
@@ -147,16 +151,25 @@ export default {
   },
 
   methods: {
+
     ...mapMutations("productsStore", [
-      "getLocalStorageCartProducts"
+      "getLocalStorageCartProducts",
+      "increment",
+      "decrement"
     ]),
+
     getTotalAccount(){
+      
       var sum = 0;
+
       this.cart.forEach(ele => {
-        sum += +ele.price;
+        sum += (+ele.element.price * ele.quantity);
       });
+
       return sum;
+
     },
+
   },
 
 };

@@ -38,6 +38,34 @@ export const setProductsToCart = ( state, product ) => {
 
 }
 
+export const increment = ( state, product ) => {
+
+    state.cart.forEach(ele => {
+        if(product.element.id == ele.element.id){
+            ele.quantity++;
+        }
+    });
+
+    localStorage.removeItem('cart');
+
+    localStorage.setItem('cart', JSON.stringify(state.cart));
+
+}
+
+export const decrement = ( state, product ) => {
+
+    state.cart.forEach(ele => {
+        if(product.element.id == ele.element.id){
+            ele.quantity--;
+        }
+    });
+
+    localStorage.removeItem('cart');
+
+    localStorage.setItem('cart', JSON.stringify(state.cart));
+
+}
+
 export const setLocalStorageCartProducts = ( product ) => {
 
     let localCart = [];
