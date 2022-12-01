@@ -51,22 +51,32 @@
           <template v-for="(item, i) in cart">
             <a class="navi-item mb-5" :key="i">
               <div class="navi-link rounded">
+
                 <div class="symbol symbol-50 mr-3">
                   <div class="symbol-label">
                     <i class="icon-lg flaticon-shopping-basket text-primary" />
                   </div>
                 </div>
+
                 <div class="navi-text">
+
+                  <!-- PRODUCT NAME -->
                   <div class="font-weight-bold font-size-lg">
                     {{ item.element.name }}
                   </div>
+
+                  <!-- PRODUCT PRICE -->
                   <div class="text-muted">
                     RD$ {{ item.element.price }}
                   </div>
+
                 </div>
-                <button class="btn btn-outline-primary">
+
+                <!-- TRASH BUTTON -->
+                <button @click="deleteCartProduct(item)" class="btn btn-outline-primary">
                   <i class="fas fa-trash-alt"></i>
                 </button>
+
               </div>
 
               <section class="card p-3">
@@ -155,7 +165,8 @@ export default {
     ...mapMutations("productsStore", [
       "getLocalStorageCartProducts",
       "increment",
-      "decrement"
+      "decrement",
+      "deleteCartProduct"
     ]),
 
     getTotalAccount(){
