@@ -543,6 +543,9 @@ export default {
         });
       });
     }
-  }
+  },
+  destroyed(){
+    this.$router.go();
+  },
 };
 </script>

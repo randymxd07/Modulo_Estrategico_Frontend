@@ -8,7 +8,7 @@
     <div id="kt_quick_notifications_toggle">
       <div class="btn btn-clean">
         <i class="fas fa-shopping-cart"></i>
-        <b-badge variant="light">{{productsInCart.length}}</b-badge>
+        <b-badge variant="light">{{cart.length}}</b-badge>
       </div>
     </div>
 
@@ -29,7 +29,6 @@
         <!-- TITLE -->
         <h3 class="font-weight-bold m-0">
           Carrito de Compras
-          <!-- <small class="text-muted font-size-sm ml-2">24 New</small> -->
         </h3>
 
         <!-- CLOSE BUTTON -->
@@ -49,7 +48,7 @@
         <div class="navi navi-icon-circle navi-spacer-x-0">
 
           <!-- ITEM -->
-          <template v-for="(item, i) in productsInCart">
+          <template v-for="(item, i) in cart">
             <a class="navi-item mb-5" :key="i">
               <div class="navi-link rounded">
                 <div class="symbol symbol-50 mr-3">
@@ -88,7 +87,8 @@
           </section>
 
           <!-- PAY BUTTON -->
-          <router-link 
+          <router-link
+            v-show="(getTotalAccount() != 0)"
             :to="{ name: 'payment' }" 
             type="button" 
             class="col-sm-12 btn btn-lg btn-outline-primary"
@@ -107,46 +107,48 @@
 </template>
 
 <script>
+
 import KTLayoutQuickNotifications from "@/assets/js/layout/extended/quick-notifications.js";
+import { mapMutations, mapState } from 'vuex';
 
 export default {
+
   name: "KTQuickPanel",
-  data() {
-    return {
-      productsInCart: [
-        {
-          id: '',
-          name: "Pizza de Peperoni",
-          price: 850,
-          icon: "flaticon-shopping-basket text-primary"
-        },
-        {
-          id: '',
-          name: "Flan",
-          price: 85,
-          icon: "flaticon-shopping-basket text-primary"
-        },
-        {
-          id: '',
-          name: "Big Special Burguer",
-          price: 350,
-          icon: "flaticon-shopping-basket text-primary"
-        },
-      ]
-    };
+
+  computed: {
+    ...mapState("productsStore", [
+      "cart"
+    ]),
   },
+
   mounted() {
     // Init Quick Offcanvas Panel
     KTLayoutQuickNotifications.init(this.$refs["kt_quick_notifications"]);
+    
+    if(this.cart.length == 0){
+
+      const items = JSON.parse(localStorage.getItem('cart'));
+
+      if(items) {
+        this.getLocalStorageCartProducts(items);
+      }
+
+    }
+
   },
+
   methods: {
+    ...mapMutations("productsStore", [
+      "getLocalStorageCartProducts"
+    ]),
     getTotalAccount(){
       var sum = 0;
-      this.productsInCart.forEach(ele => {
+      this.cart.forEach(ele => {
         sum += ele.price;
       });
       return sum;
     },
   },
+
 };
 </script>

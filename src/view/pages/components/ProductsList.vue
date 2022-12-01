@@ -65,7 +65,7 @@
             </p>
 
             <!-- ADD CART BUTTON -->
-            <button class="col-sm-12 btn btn-primary">
+            <button @click="addToCart(data)" class="col-sm-12 btn btn-primary">
               <i class="fas fa-cart-plus"></i> Agregar al Carrito
             </button>
 
@@ -83,34 +83,42 @@
 
 <script>
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
 
-    computed: {
-      ...mapState("productsStore", ["products"])
+  computed: {
+    ...mapState("productsStore", ["products"])
+  },
+
+  methods: {
+
+    ...mapActions("productsStore", ["getProducts"]),
+
+    ...mapMutations("productsStore", ["setProductsToCart"]),
+
+    async setProductScore(id, score){
+      await restaurantApi.put('products/putScore/'+id, {score: score})
+      .then(({data}) => {
+        console.log(data.data);
+      })
+      .catch(({response}) => {
+        console.error(response.data);
+      });
     },
 
-    methods: {
+    addToCart(data){
 
-      ...mapActions("productsStore", ["getProducts"]),
+      this.setProductsToCart(data);
 
-      async setProductScore(id, score){
-        await restaurantApi.put('products/putScore/'+id, {score: score})
-        .then(({data}) => {
-          console.log(data.data);
-        })
-        .catch(({response}) => {
-          console.error(response.data);
-        });
-      },
+    }
 
-    },
+  },
 
-    async created(){
-        await this.getProducts();
-    },
+  async created(){
+    await this.getProducts();
+  },
 
 };
 
