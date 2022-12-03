@@ -19,13 +19,13 @@
                             </div>
 
                             <div class="row">
-                                <h5 class="lead">23/11/2022</h5>
+                                <h5 class="lead">{{getDate()}}</h5>
                             </div>
 
                         </div>
 
                         <div class="col-sm-12 col-md-6 text-right text-blue">
-                            <h5>RD$ 1,285</h5>
+                            <h5>RD$ {{getTotalAccount()}}</h5>
                         </div>
 
                     </v-expansion-panel-header>
@@ -33,7 +33,7 @@
                     <v-expansion-panel-content class="text-center">
             
                         <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
-                        <h4>2022-11-23 8:10:00</h4>
+                        <h4>{{getFullDate()}}</h4>
                         <span class="lead">www.daragumard.com</span>
                         <p class="lead">(849) 858-2406</p>
 
@@ -52,12 +52,12 @@
                                 </b-thead>
 
                                 <!-- TABLE BODY -->
-                                <b-tbody v-for="data in productsInCart" :key="data.id">
+                                <b-tbody v-for="data in cart" :key="data.id">
                                     <b-tr>
-                                        <b-td>{{data.name}}</b-td>
+                                        <b-td>{{data.element.name}}</b-td>
                                         <b-td>{{data.quantity}}</b-td>
-                                        <b-td>RD$ {{data.price}}</b-td>
-                                        <b-td>{{data.estimated_time}}</b-td>
+                                        <b-td>RD$ {{data.element.price}}</b-td>
+                                        <b-td>{{data.element.estimated_time}}</b-td>
                                     </b-tr>
                                 </b-tbody>
 
@@ -103,7 +103,11 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex';
+
 export default {
+
     data(){
         return{
             selectedPaymentMethod: null,
@@ -119,32 +123,38 @@ export default {
                 { value: 'Restaurante', text: 'Ordenar desde el Restaurante' },
             ],
             panel: [0],
-            productsInCart: [
-                {
-                    id: '',
-                    name: "Pizza de Peperoni",
-                    price: 850,
-                    quantity: 1,
-                    estimated_time: '30m',
-                },
-                {
-                    id: '',
-                    name: "Flan",
-                    price: 85,
-                    quantity: 1,
-                    estimated_time: '5m',
-                },
-                {
-                    id: '',
-                    name: "Big Special Burguer",
-                    price: 350,
-                    quantity: 1,
-                    estimated_time: '30m',
-                },
-            ]
         }
+    },
+
+    computed: {
+        ...mapState("productsStore", [
+            "cart",
+        ])
+    },
+
+    methods: {
+
+        getDate(){
+            return new Date().toLocaleDateString('es-ES').replace("/", "-").replace("/", "-");
+        },
+
+        getFullDate(){
+            return new Date().toLocaleString().replace("/", "-").replace("/", "-");
+        },
+
+        getTotalAccount(){
+          var sum = 0;
+          this.cart.forEach(ele => {
+            sum += (+ele.element.price * ele.quantity);
+          });
+          return sum;
+        },
+
     }
+
+
 }
+
 </script>
 
 <style>
