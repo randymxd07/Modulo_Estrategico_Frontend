@@ -150,6 +150,9 @@ export default {
           this.cart.forEach(ele => {
             sum += (+ele.element.price * ele.quantity);
           });
+          if(this.cart.length == 0){
+            this.$router.push({ name: 'dashboard' })
+          }
           return sum;
         },
 
