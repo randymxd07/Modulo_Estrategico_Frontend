@@ -105,6 +105,7 @@
 <script>
 
 import { mapState } from 'vuex';
+import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
 
@@ -114,13 +115,9 @@ export default {
             selectedOrderType: null,
             paymentMethodOptions: [
                 { value: null, text: 'Selecciona un metodo de pago', disabled: true },
-                { value: 'Efectivo', text: 'Efectivo' },
-                { value: 'Tarjeta', text: 'Tarjeta' },
             ],
             orderTypeOptions: [
                 { value: null, text: 'Selecciona un tipo de orden', disabled: true },
-                { value: 'Domicilio', text: 'Ordenar a Domicilio' },
-                { value: 'Restaurante', text: 'Ordenar desde el Restaurante' },
             ],
             panel: [0],
         }
@@ -150,7 +147,37 @@ export default {
           return sum;
         },
 
-    }
+    },
+
+    async created(){
+
+        await restaurantApi.get('payment-methods')
+        .then(({data}) => {
+            data.data.forEach(ele => {
+                this.paymentMethodOptions.push({
+                    text: ele.description,
+                    value: ele.id
+                });
+            });
+        })
+        .catch(({response}) => {
+            console.error(response.data);
+        });
+        
+        await restaurantApi.get('order-types')
+        .then(({data}) => {
+            data.data.forEach(ele => {
+                this.orderTypeOptions.push({
+                    text: ele.description,
+                    value: ele.id
+                });
+            });
+        })
+        .catch(({response}) => {
+            console.error(response.data);
+        });
+
+    },
 
 
 }
