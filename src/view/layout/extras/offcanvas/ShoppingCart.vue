@@ -109,7 +109,7 @@
           <hr>
 
           <!-- TOTAL PAYMENT -->
-          <section class="my-5">
+          <section v-if="cart.length != 0" class="my-5">
             <h3>Total a Pagar: <span>RD$ {{getTotalAccount()}}</span></h3>
           </section>
 
