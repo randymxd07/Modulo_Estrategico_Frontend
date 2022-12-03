@@ -73,26 +73,30 @@
 
             <!-- <img v-show="(soldTickets.length === 0)" src="@/assets/images/no-data-found.png" alt="No Data Found"> -->
 
-            <section class="row my-5">
+            <section >
 
-                <!-- SELECTS -->
-                <article class="col-sm-12 col-md-4 mb-5">
-                    <h5>Metodo de Pago</h5>
-                    <b-form-select v-model="selectedPaymentMethod" :options="paymentMethodOptions" class="m-0" size="lg"></b-form-select>
-                </article>
-                
-                <!-- COLUMN TO FILL -->
-                <div class="col-sm-12 col-md-5 mb-5">
-                    <h5>Tipo de Orden</h5>
-                    <b-form-select v-model="selectedOrderType" :options="orderTypeOptions" class="m-0" size="lg"></b-form-select>
-                </div>
+                <form @submit.prevent.stop="onSubmit" class="row my-5">
 
-                <article class="col-sm-12 col-md-3 mb-5">
-                    <br>
-                    <button class="col-sm-12 btn btn-lg btn-primary">
-                        <i class="fas fa-money-bill-alt"></i> Pagar
-                    </button>
-                </article>
+                    <!-- SELECTS -->
+                    <article class="col-sm-12 col-md-4 mb-5">
+                        <h5>Metodo de Pago</h5>
+                        <b-form-select :state="(selectedPaymentMethod != null) ? true : selectedPaymentMethodState" v-model="selectedPaymentMethod" :options="paymentMethodOptions" class="m-0" size="lg"></b-form-select>
+                    </article>
+                    
+                    <!-- COLUMN TO FILL -->
+                    <div class="col-sm-12 col-md-5 mb-5">
+                        <h5>Tipo de Orden</h5>
+                        <b-form-select :state="(selectedOrderType != null) ? true : selectedOrderTypeState" v-model="selectedOrderType" :options="orderTypeOptions" class="m-0" size="lg"></b-form-select>
+                    </div>
+
+                    <article class="col-sm-12 col-md-3 mb-5">
+                        <br>
+                        <button type="submit" class="col-sm-12 btn btn-lg btn-primary">
+                            <i class="fas fa-money-bill-alt"></i> Pagar
+                        </button>
+                    </article>
+
+                </form>
 
             </section>
 
@@ -112,7 +116,9 @@ export default {
     data(){
         return{
             selectedPaymentMethod: null,
+            selectedPaymentMethodState: null,
             selectedOrderType: null,
+            selectedOrderTypeState: null,
             paymentMethodOptions: [
                 { value: null, text: 'Selecciona un metodo de pago', disabled: true },
             ],
@@ -145,6 +151,31 @@ export default {
             sum += (+ele.element.price * ele.quantity);
           });
           return sum;
+        },
+
+        validateInputs(){
+
+            (this.selectedPaymentMethod == null) ? this.selectedPaymentMethodState = false : this.selectedPaymentMethodState = true;
+            (this.selectedOrderType == null) ? this.selectedOrderTypeState = false : this.selectedOrderTypeState = true;
+
+        },
+
+        onSubmit(){
+
+            this.validateInputs();
+
+            if((this.selectedPaymentMethod && this.selectedOrderType) != null){
+
+                // TODO: SI SE SELECCIONA EL METODO DE PAGO EFECTIVO ENTONCES PASA A LA PANTALLA DEL ESTADO DEL PEDIDO //
+
+                // TODO: SI SE SELECICONA EL METODO DE PAGO CON TARJETA ENTONCES PUEDO ABRIR UN MODAL PARA QUE SE DIGITE LA TARJETA (HACER UNA SIMULACION PORQUE STRIPE REQUIRE CERTIFICADO SSL) LUEGO SE LLEVA A LA PANTALLA DE ESTADO DEL PEDIDO //
+                
+                // TODO: SI SE SELECCIONA EL TIPO DE ORDEN A DOMICILIO LUEGO DE LA PANTALLA DEL ESTADO DEL PEDIDO DEBO MOSTRAR UN MAPA CON LA RUTA DEL CLIENTE //
+
+                alert("Todo bien!!!")
+
+            }
+
         },
 
     },
