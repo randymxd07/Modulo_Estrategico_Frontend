@@ -47,7 +47,7 @@
                                         <b-th>PRODUCTO</b-th>
                                         <b-th>CANTIDAD</b-th>
                                         <b-th>PRECIO</b-th>
-                                        <b-th>TIEMPO ESTIMADO</b-th>
+                                        <b-th>SUB TOTAL</b-th>
                                     </b-tr>
                                 </b-thead>
 
@@ -57,7 +57,7 @@
                                         <b-td>{{data.element.name}}</b-td>
                                         <b-td>{{data.quantity}}</b-td>
                                         <b-td>RD$ {{data.element.price}}</b-td>
-                                        <b-td>{{data.element.estimated_time}}</b-td>
+                                        <b-td>RD$ {{data.quantity * data.element.price}}</b-td>
                                     </b-tr>
                                 </b-tbody>
 
@@ -91,10 +91,31 @@
 
                     <article class="col-sm-12 col-md-3 mb-5">
                         <br>
-                        <button type="submit" class="col-sm-12 btn btn-lg btn-primary">
+                        <button
+                            v-if="(selectedPaymentMethod != 2)"
+                            type="submit"
+                            class="col-sm-12 btn btn-lg btn-primary"
+                        >
+                            <i class="fas fa-money-bill-alt"></i> Pagar
+                        </button>
+                        <button
+                            v-else
+                            v-b-modal.modal-1
+                            type="submit"
+                            class="col-sm-12 btn btn-lg btn-primary"
+                        >
                             <i class="fas fa-money-bill-alt"></i> Pagar
                         </button>
                     </article>
+
+                    <b-modal
+                        centered
+                        size="lg" 
+                        id="modal-1" 
+                        title="Ingresa tu Tarjeta de Crédito"
+                    >
+                        <p class="my-4">Hello from modal!</p>
+                    </b-modal>
 
                 </form>
 
@@ -115,6 +136,7 @@ export default {
 
     data(){
         return{
+            showSetCardModal: false,
             selectedPaymentMethod: null,
             selectedPaymentMethodState: null,
             selectedOrderType: null,
@@ -174,8 +196,6 @@ export default {
                 // TODO: SI SE SELECICONA EL METODO DE PAGO CON TARJETA ENTONCES PUEDO ABRIR UN MODAL PARA QUE SE DIGITE LA TARJETA (HACER UNA SIMULACION PORQUE STRIPE REQUIRE CERTIFICADO SSL) LUEGO SE LLEVA A LA PANTALLA DE ESTADO DEL PEDIDO //
                 
                 // TODO: SI SE SELECCIONA EL TIPO DE ORDEN A DOMICILIO LUEGO DE LA PANTALLA DEL ESTADO DEL PEDIDO DEBO MOSTRAR UN MAPA CON LA RUTA DEL CLIENTE //
-
-                alert("Todo bien!!!")
 
             }
 
