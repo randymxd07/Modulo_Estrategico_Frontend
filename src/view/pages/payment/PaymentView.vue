@@ -93,6 +93,7 @@
                         <br>
                         <button
                             v-if="(selectedPaymentMethod != 2)"
+                            :disabled="(selectedPaymentMethod && selectedOrderType) == null"
                             type="submit"
                             class="col-sm-12 btn btn-lg btn-primary"
                         >
@@ -100,6 +101,7 @@
                         </button>
                         <button
                             v-else
+                            :disabled="(selectedPaymentMethod && selectedOrderType) == null"
                             v-b-modal.modal-1
                             type="submit"
                             class="col-sm-12 btn btn-lg btn-primary"
@@ -108,13 +110,104 @@
                         </button>
                     </article>
 
+                    <!-- MODAL -->
                     <b-modal
+                        hide-footer
                         centered
-                        size="lg" 
+                        size="md" 
                         id="modal-1" 
                         title="Ingresa tu Tarjeta de Crédito"
                     >
-                        <p class="my-4">Hello from modal!</p>
+                        <form class="container">
+                            <section class="row">
+                                <article class="col-sm-12">
+                                    <b-form-group
+                                        id="email"
+                                        label="Correo electrónico"
+                                        label-for="email"
+                                    >
+                                        <b-form-input
+                                            size="lg"
+                                            id="email"
+                                            type="email"
+                                            placeholder="Ingresa tu correo electrónico"
+                                            required
+                                        ></b-form-input>
+                                    </b-form-group>
+                                </article>
+                                <article class="col-sm-12">
+                                    <b-form-group
+                                        id="card"
+                                        label="Tarjeta"
+                                        label-for="card"
+                                    >
+                                        <b-form-input
+                                            :state="(cardNumber.length == 19) ? true : null"
+                                            v-model="cardNumber"
+                                            v-maska="'#### #### #### ####'"
+                                            size="lg"
+                                            id="card"
+                                            placeholder="#### #### #### ####"
+                                            required
+                                        ></b-form-input>
+                                    </b-form-group>
+                                </article>
+                                <article class="col-sm-6">
+                                    <b-form-input
+                                        class="mb-5"
+                                        size="lg"
+                                        id="MMAA"
+                                        v-model="MMAA"
+                                        v-maska="'## / ##'"
+                                        placeholder="MM / AA"
+                                        required
+                                    ></b-form-input>
+                                </article>
+                                <article class="col-sm-6">
+                                    <b-form-input
+                                        class="mb-5"
+                                        size="lg"
+                                        id="cvv"
+                                        v-model="CVV"
+                                        v-maska="'###'"
+                                        placeholder="CVV"
+                                        required
+                                    ></b-form-input>
+                                </article>
+                                <article class="col-sm-12">
+                                    <b-form-group
+                                        id="card"
+                                        label="Nombre en la Tarjeta"
+                                        label-for="card"
+                                    >
+                                        <b-form-input
+                                            size="lg"
+                                            id="card"
+                                            v-model="cardName"
+                                            placeholder="Escribe el nombre de la tarjeta"
+                                            required
+                                        ></b-form-input>
+                                    </b-form-group>
+                                </article>
+                                <article class="col-sm-12">
+                                    <b-form-checkbox
+                                        class="mb-5"
+                                        size="lg"
+                                        id="saveCard"
+                                        name="saveCard"
+                                        :value="true"
+                                        :unchecked-value="false"
+                                    >
+                                        Guardar la información de la tarjeta 
+                                    </b-form-checkbox>
+                                </article>
+                                <article class="col-sm-12">
+                                    <b-button class="col-sm-12" size="lg" variant="primary">
+                                        <i class="fas fa-credit-card"></i> Realizar Pago
+                                    </b-button>
+                                </article>
+                            </section>
+                        </form>
                     </b-modal>
 
                 </form>
@@ -129,13 +222,20 @@
 
 <script>
 
+import { maska } from 'maska'
 import { mapState } from 'vuex';
 import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
 
+    directives: { maska },
+
     data(){
         return{
+            cardNumber: '',
+            MMAA: '',
+            CVV: '',
+            cardName: '',
             showSetCardModal: false,
             selectedPaymentMethod: null,
             selectedPaymentMethodState: null,
