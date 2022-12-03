@@ -75,7 +75,7 @@
 
             <section >
 
-                <form @submit.prevent.stop="onSubmit" class="row my-5">
+                <form class="row my-5">
 
                     <!-- SELECTS -->
                     <article class="col-sm-12 col-md-4 mb-5">
@@ -91,19 +91,26 @@
 
                     <article class="col-sm-12 col-md-3 mb-5">
                         <br>
+                        <!-------------------------
+                            PAY WITH CASH BUTTON 
+                        --------------------------->
                         <button
+                            @click="payWithCash"
                             v-if="(selectedPaymentMethod != 2)"
                             :disabled="(selectedPaymentMethod && selectedOrderType) == null"
-                            type="submit"
+                            type="button"
                             class="col-sm-12 btn btn-lg btn-primary"
                         >
                             <i class="fas fa-money-bill-alt"></i> Pagar
                         </button>
+                        <!-------------------------
+                            PAY WITH CARD BUTTON 
+                        --------------------------->
                         <button
                             v-else
                             :disabled="(selectedPaymentMethod && selectedOrderType) == null"
                             v-b-modal.modal-1
-                            type="submit"
+                            type="button"
                             class="col-sm-12 btn btn-lg btn-primary"
                         >
                             <i class="fas fa-money-bill-alt"></i> Pagar
@@ -202,7 +209,13 @@
                                     </b-form-checkbox>
                                 </article>
                                 <article class="col-sm-12">
-                                    <b-button class="col-sm-12" size="lg" variant="primary">
+                                    <b-button 
+                                        @click="payWithCard"
+                                        type="button" 
+                                        class="col-sm-12" 
+                                        size="lg" 
+                                        variant="primary"
+                                    >
                                         <i class="fas fa-credit-card"></i> Realizar Pago
                                     </b-button>
                                 </article>
@@ -285,7 +298,27 @@ export default {
 
         },
 
-        onSubmit(){
+        payWithCash(){
+
+            alert("Pagando con Efectivo");
+
+            this.validateInputs();
+
+            if((this.selectedPaymentMethod && this.selectedOrderType) != null){
+
+                // TODO: SI SE SELECCIONA EL METODO DE PAGO EFECTIVO ENTONCES PASA A LA PANTALLA DEL ESTADO DEL PEDIDO //
+
+                // TODO: SI SE SELECICONA EL METODO DE PAGO CON TARJETA ENTONCES PUEDO ABRIR UN MODAL PARA QUE SE DIGITE LA TARJETA (HACER UNA SIMULACION PORQUE STRIPE REQUIRE CERTIFICADO SSL) LUEGO SE LLEVA A LA PANTALLA DE ESTADO DEL PEDIDO //
+                
+                // TODO: SI SE SELECCIONA EL TIPO DE ORDEN A DOMICILIO LUEGO DE LA PANTALLA DEL ESTADO DEL PEDIDO DEBO MOSTRAR UN MAPA CON LA RUTA DEL CLIENTE //
+
+            }
+
+        },
+
+        payWithCard(){
+
+            alert("Pagando con Tarjeta");
 
             this.validateInputs();
 
