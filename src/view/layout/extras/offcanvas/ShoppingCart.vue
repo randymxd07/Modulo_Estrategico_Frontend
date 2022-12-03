@@ -117,7 +117,7 @@
           <router-link
             v-show="(getTotalAccount() != 0)"
             :to="{ name: 'payment' }" 
-            type="button" 
+            type="button"
             class="col-sm-12 btn btn-lg btn-outline-primary"
           >
             <i class="fas fa-money-bill-alt"></i> Ir a Pagar
