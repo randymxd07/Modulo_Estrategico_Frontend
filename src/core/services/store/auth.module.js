@@ -58,7 +58,7 @@ const actions = {
         });
     });
   },
-  async [VERIFY_AUTH](/* context */) {
+  async [VERIFY_AUTH](context) {
 
     if (JwtService.getToken()) {
 
@@ -66,18 +66,23 @@ const actions = {
 
       await restaurantApi.get('verify')
       .then(({data}) => {
-        console.log(data);
+        console.log(data)
+        context.commit(SET_AUTH, data);
       })
       .catch(({response}) => {
+        
         console.error(response.data);
-        localStorage.clear();
-        this.$router.go();
+
+        if(window.location.pathname != '/'){
+          localStorage.clear();
+          this.$router.go();
+        }
+
       })
 
     } else {
 
-      localStorage.clear();
-      // context.commit(PURGE_AUTH);
+      context.commit(PURGE_AUTH);
 
     }
 
