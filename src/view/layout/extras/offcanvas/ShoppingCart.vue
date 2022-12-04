@@ -181,7 +181,7 @@ export default {
         sum += (+ele.element.price * ele.quantity);
       });
 
-      return sum;
+      return sum.toFixed(2);
 
     },
 

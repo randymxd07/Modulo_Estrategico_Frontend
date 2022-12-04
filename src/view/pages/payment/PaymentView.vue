@@ -15,7 +15,7 @@
                         <div class="col-sm-12 col-md-6 text-left">
 
                             <div class="row">
-                                <h3>Randy Martínez Cepeda</h3>
+                                <h3>{{fullname}}</h3>
                             </div>
 
                             <div class="row">
@@ -24,8 +24,8 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-6 text-right text-blue">
-                            <h5>RD$ {{getTotalAccount()}}</h5>
+                        <div class="col-sm-12 col-md-6 text-right">
+                            <h5>TOTAL A PAGAR: <span class="text-primary">RD$ {{getTotalAccount().toFixed(2)}}</span></h5>
                         </div>
 
                     </v-expansion-panel-header>
@@ -245,6 +245,7 @@ export default {
 
     data(){
         return{
+            fullname: '',
             cardNumber: '',
             MMAA: '',
             CVV: '',
@@ -260,6 +261,7 @@ export default {
             orderTypeOptions: [
                 { value: null, text: 'Selecciona un tipo de orden', disabled: true },
             ],
+            orderDetails: [],
             panel: [0],
         }
     },
@@ -298,33 +300,79 @@ export default {
 
         },
 
-        payWithCash(){
-
-            alert("Pagando con Efectivo");
+        async payWithCash(){
 
             this.validateInputs();
 
             if((this.selectedPaymentMethod == 1 && this.selectedOrderType) != null){
 
-                // TODO: CREAR EL PEDIDO //
+                this.orderDetails = [];
+
+                this.cart.forEach(ele => {
+                    this.orderDetails.push({
+                        product_id: ele.element.id,
+                        quantity: ele.quantity
+                    })
+                });
+
+                let json = {
+                    order_type_id: this.selectedOrderType,
+                    payment_method_id: this.selectedPaymentMethod,
+                    latitude: localStorage.getItem('latitude'),
+                    longitude: localStorage.getItem('longitude'),
+                    status: true,
+                    order_details: this.orderDetails
+                }
+
+                // console.log(JSON.stringify(json, null, 3));
+
+                await restaurantApi.post('orders', json)
+                .then(({data}) => {
+                    console.log(data);
+                })
+                .catch(({response}) => {
+                    console.error(response.data);
+                })
 
             }
 
         },
 
-        payWithCard(){
+        async payWithCard(){
 
             alert("Pagando con Tarjeta");
 
             this.validateInputs();
 
-            if((this.selectedPaymentMethod && this.selectedOrderType) != null){
+            if((this.selectedPaymentMethod == 2 && this.selectedOrderType) != null){
 
-                // TODO: SI SE SELECCIONA EL METODO DE PAGO EFECTIVO ENTONCES PASA A LA PANTALLA DEL ESTADO DEL PEDIDO //
+                this.orderDetails = [];
 
-                // TODO: SI SE SELECICONA EL METODO DE PAGO CON TARJETA ENTONCES PUEDO ABRIR UN MODAL PARA QUE SE DIGITE LA TARJETA (HACER UNA SIMULACION PORQUE STRIPE REQUIRE CERTIFICADO SSL) LUEGO SE LLEVA A LA PANTALLA DE ESTADO DEL PEDIDO //
-                
-                // TODO: SI SE SELECCIONA EL TIPO DE ORDEN A DOMICILIO LUEGO DE LA PANTALLA DEL ESTADO DEL PEDIDO DEBO MOSTRAR UN MAPA CON LA RUTA DEL CLIENTE //
+                this.cart.forEach(ele => {
+                    this.orderDetails.push({
+                        product_id: ele.element.id,
+                        quantity: ele.quantity
+                    })
+                });
+
+                let json = {
+                    order_type_id: this.selectedOrderType,
+                    payment_method_id: this.selectedPaymentMethod,
+                    latitude: localStorage.getItem('latitude'),
+                    longitude: localStorage.getItem('longitude'),
+                    status: true,
+                    order_details: this.orderDetails
+                }
+
+                // console.log(JSON.stringify(json, null, 3));
+
+                await restaurantApi.post('orders', json)
+                .then(({data}) => {
+                    console.log(data);
+                })
+                .catch(({response}) => {
+                    console.error(response.data);
+                })
 
             }
 
@@ -333,6 +381,16 @@ export default {
     },
 
     async created(){
+
+        navigator.geolocation.watchPosition(pos => {
+            localStorage.setItem('longitude', pos.coords.longitude);
+            localStorage.setItem('latitude', pos.coords.latitude);
+            // console.log('Longitude: '+pos.coords.longitude, '\n\nLatitude: '+pos.coords.latitude);
+        })
+
+
+
+        this.fullname = JSON.parse(localStorage.getItem('user')).fullname;
 
         await restaurantApi.get('payment-methods')
         .then(({data}) => {
