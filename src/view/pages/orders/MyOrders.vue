@@ -8,72 +8,72 @@
 
       <v-expansion-panels>
 
-          <v-expansion-panel class="mb-5" multiple style="border-radius: 20px" v-for="data in 5" :key="data.id">
+        <v-expansion-panel class="mb-5" multiple style="border-radius: 20px" v-for="data in orders" :key="data.id">
 
-              <v-expansion-panel-header>
+          <v-expansion-panel-header>
 
-                  <div class="col-sm-12 col-md-6 text-left">
+            <div class="col-sm-12 col-md-6 text-left">
 
-                      <div class="row">
-                          <h3>Randy Martínez Cepeda</h3>
-                      </div>
+              <div class="row">
+                <h3>{{fullname}}</h3>
+              </div>
 
-                      <div class="row">
-                          <h5 class="lead">23/11/2022</h5>
-                      </div>
+              <div class="row">
+                <h5 class="lead">{{getDate()}}</h5>
+              </div>
 
-                  </div>
+            </div>
 
-                  <div class="col-sm-12 col-md-6 text-right text-blue">
-                      <h5>RD$ 1,285</h5>
-                  </div>
+            <div class="col-sm-12 col-md-6 text-right">
+              <h5>TOTAL A PAGADO: <span class="text-primary">RD$ {{getTotalAccount(data.order_details).toFixed(2)}}</span></h5>
+            </div>
 
-              </v-expansion-panel-header>
+          </v-expansion-panel-header>
 
-              <v-expansion-panel-content class="text-center">
-      
-                  <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
-                  <h4>2022-11-23 8:10:00</h4>
-                  <span class="lead">www.daragumard.com</span>
-                  <p class="lead">(849) 858-2406</p>
+          <v-expansion-panel-content class="text-center">
+  
+            <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
+            <h4>{{getFullDate()}}</h4>
+            <span class="lead">www.daragumard.com</span>
+            <p class="lead">(849) 858-2406</p>
 
-                  <div class="table-responsive-xxl">
+            <div class="table-responsive-xxl">
 
-                      <b-table-simple class="table" sticky-header="450px" fixed hover>
+              <b-table-simple class="table" sticky-header="450px" fixed hover>
 
-                          <!-- TABLE TITLE -->
-                          <b-thead>
-                              <b-tr>
-                                  <b-th>PRODUCTO</b-th>
-                                  <b-th>CANTIDAD</b-th>
-                                  <b-th>PRECIO</b-th>
-                                  <b-th>TIEMPO ESTIMADO</b-th>
-                              </b-tr>
-                          </b-thead>
+                <!-- TABLE TITLE -->
+                <b-thead>
+                  <b-tr>
+                    <b-th>PRODUCTO</b-th>
+                    <b-th>CANTIDAD</b-th>
+                    <b-th>PRECIO</b-th>
+                    <b-th>SUBTOTAL</b-th>
+                  </b-tr>
+                </b-thead>
 
-                          <!-- TABLE BODY -->
-                          <b-tbody v-for="data in productsInCart" :key="data.id">
-                              <b-tr>
-                                  <b-td>{{data.name}}</b-td>
-                                  <b-td>{{data.quantity}}</b-td>
-                                  <b-td>RD$ {{data.price}}</b-td>
-                                  <b-td>{{data.estimated_time}}</b-td>
-                              </b-tr>
-                          </b-tbody>
+                <!-- TABLE BODY -->
+                <b-tbody v-for="(orderDetail, index) in data.order_details" :key="index">
+                  <b-tr>
+                    <b-td>{{orderDetail.product_name}}</b-td>
+                    <b-td>{{orderDetail.quantity}}</b-td>
+                    <b-td>RD$ {{orderDetail.product_price}}</b-td>
+                    <b-td>RD$ {{(orderDetail.quantity * orderDetail.product_price).toFixed(2)}}</b-td>
+                  </b-tr>
+                </b-tbody>
 
-                      </b-table-simple>
+              </b-table-simple>
+              
+              <router-link :to="{ name: 'payment' }">
+                <b-button size="lg" variant="primary" class="col-sm-5 my-5">
+                  <i class="fas fa-redo-alt"></i> Volver a Ordenar
+                </b-button>
+              </router-link>
 
-                      <router-link :to="{ name: 'payment' }">
-                        <b-button size="lg" variant="primary" class="col-sm-5 my-5">
-                          <i class="fas fa-redo-alt"></i> Volver a Ordenar
-                        </b-button>
-                      </router-link>
+            </div>
 
-                  </div>
+          </v-expansion-panel-content>
 
-              </v-expansion-panel-content>
-
-          </v-expansion-panel>
+        </v-expansion-panel>
 
       </v-expansion-panels>
 
@@ -86,35 +86,56 @@
 </template>
 
 <script>
+
+import restaurantApi from '@/core/services/api/restaurantApi';
+
 export default {
+
   data(){
     return{
-      productsInCart: [
-        {
-            id: '',
-            name: "Pizza de Peperoni",
-            price: 850,
-            quantity: 1,
-            estimated_time: '30m',
-        },
-        {
-            id: '',
-            name: "Flan",
-            price: 85,
-            quantity: 1,
-            estimated_time: '5m',
-        },
-        {
-            id: '',
-            name: "Big Special Burguer",
-            price: 350,
-            quantity: 1,
-            estimated_time: '30m',
-        },
-      ]
+      fullname: '',
+      orders: [],
     }
-  }
+  },
+
+  methods: {
+
+    getDate(){
+      return new Date().toLocaleDateString('es-ES');
+    },
+
+    getFullDate(){
+      return new Date().toLocaleString();
+    },
+
+    getTotalAccount(data){
+      var sum = 0;
+      data.forEach(ele => {
+        sum += (+ele.product_price * ele.quantity);
+      })
+      return sum;
+    },
+
+  },
+
+  async created(){
+
+    this.fullname = JSON.parse(localStorage.getItem('user')).fullname;
+
+    await restaurantApi.get('orders')
+    .then(({data}) => {
+      data.data.forEach(ele => {
+        this.orders.push(ele);
+      })
+    })
+    .catch(({response}) => {
+      console.error(response.data);
+    })
+
+  },
+
 }
+
 </script>
 
 <style>

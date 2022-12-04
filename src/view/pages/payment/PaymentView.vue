@@ -340,8 +340,6 @@ export default {
 
         async payWithCard(){
 
-            alert("Pagando con Tarjeta");
-
             this.validateInputs();
 
             if((this.selectedPaymentMethod == 2 && this.selectedOrderType) != null){
@@ -387,8 +385,6 @@ export default {
             localStorage.setItem('latitude', pos.coords.latitude);
             // console.log('Longitude: '+pos.coords.longitude, '\n\nLatitude: '+pos.coords.latitude);
         })
-
-
 
         this.fullname = JSON.parse(localStorage.getItem('user')).fullname;
 
