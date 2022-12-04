@@ -47,7 +47,7 @@
                                         <b-th>PRODUCTO</b-th>
                                         <b-th>CANTIDAD</b-th>
                                         <b-th>PRECIO</b-th>
-                                        <b-th>SUB TOTAL</b-th>
+                                        <b-th>SUBTOTAL</b-th>
                                     </b-tr>
                                 </b-thead>
 
@@ -57,7 +57,7 @@
                                         <b-td>{{data.element.name}}</b-td>
                                         <b-td>{{data.quantity}}</b-td>
                                         <b-td>RD$ {{data.element.price}}</b-td>
-                                        <b-td>RD$ {{data.quantity * data.element.price}}</b-td>
+                                        <b-td>RD$ {{(data.quantity * data.element.price).toFixed(2)}}</b-td>
                                     </b-tr>
                                 </b-tbody>
 
@@ -273,11 +273,11 @@ export default {
     methods: {
 
         getDate(){
-            return new Date().toLocaleDateString('es-ES').replace("/", "-").replace("/", "-");
+            return new Date().toLocaleDateString('es-ES');
         },
 
         getFullDate(){
-            return new Date().toLocaleString().replace("/", "-").replace("/", "-");
+            return new Date().toLocaleString();
         },
 
         getTotalAccount(){
@@ -304,13 +304,9 @@ export default {
 
             this.validateInputs();
 
-            if((this.selectedPaymentMethod && this.selectedOrderType) != null){
+            if((this.selectedPaymentMethod == 1 && this.selectedOrderType) != null){
 
-                // TODO: SI SE SELECCIONA EL METODO DE PAGO EFECTIVO ENTONCES PASA A LA PANTALLA DEL ESTADO DEL PEDIDO //
-
-                // TODO: SI SE SELECICONA EL METODO DE PAGO CON TARJETA ENTONCES PUEDO ABRIR UN MODAL PARA QUE SE DIGITE LA TARJETA (HACER UNA SIMULACION PORQUE STRIPE REQUIRE CERTIFICADO SSL) LUEGO SE LLEVA A LA PANTALLA DE ESTADO DEL PEDIDO //
-                
-                // TODO: SI SE SELECCIONA EL TIPO DE ORDEN A DOMICILIO LUEGO DE LA PANTALLA DEL ESTADO DEL PEDIDO DEBO MOSTRAR UN MAPA CON LA RUTA DEL CLIENTE //
+                // TODO: CREAR EL PEDIDO //
 
             }
 

@@ -66,7 +66,7 @@ const actions = {
 
       await restaurantApi.get('verify')
       .then(({data}) => {
-        console.log(data)
+        // console.log(data)
         context.commit(SET_AUTH, data);
       })
       .catch(({response}) => {
@@ -102,7 +102,7 @@ const mutations = {
     state.errors = error;
   },
   [SET_AUTH](state, data) {
-    console.log(data);
+    // console.log(data);
     state.isAuthenticated = true;
     state.data = data;
     state.errors = {};
