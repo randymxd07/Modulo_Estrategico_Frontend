@@ -4,4 +4,6 @@ export default () => ({
 
     cart: [],
 
+    selectedCart: [],
+
 })

@@ -38,6 +38,14 @@ export const setProductsToCart = ( state, product ) => {
 
 }
 
+export const setSelectedCart = ( state, product ) => {
+
+    state.selectedCart = [];
+
+    state.selectedCart.push(product);
+
+}
+
 export const increment = ( state, product ) => {
 
     state.cart.forEach(ele => {

@@ -6,7 +6,7 @@
         
         <v-app>
 
-            <v-expansion-panels v-model="panel" multiple style="border-radius: 20px">
+            <v-expansion-panels v-if="cart.length != 0"  v-model="panel" multiple style="border-radius: 20px">
 
                 <v-expansion-panel v-for="data in 1" :key="data.id">
 
@@ -30,7 +30,7 @@
 
                     </v-expansion-panel-header>
 
-                    <v-expansion-panel-content class="text-center">
+                    <v-expansion-panel-content v-if="cart.length != 0" class="text-center">
             
                         <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
                         <h4>{{getFullDate()}}</h4>
@@ -70,10 +70,75 @@
                 </v-expansion-panel>
 
             </v-expansion-panels>
+            
+            <v-expansion-panels v-if="selectedCart.length != 0"  v-model="panel" multiple style="border-radius: 20px">
+
+                <v-expansion-panel v-for="data in selectedCart" :key="data.id">
+
+                    <v-expansion-panel-header>
+
+                        <div class="col-sm-12 col-md-6 text-left">
+
+                            <div class="row">
+                                <h3>{{data.fullname}}</h3>
+                            </div>
+
+                            <div class="row">
+                                <h5 class="lead">{{getDate()}}</h5>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 text-right">
+                            <h5>TOTAL A PAGAR: <span class="text-primary">RD$ {{getTotalAccount().toFixed(2)}}</span></h5>
+                        </div>
+
+                    </v-expansion-panel-header>
+
+                    <v-expansion-panel-content class="text-center">
+
+                        <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
+                        <h4>{{getFullDate()}}</h4>
+                        <span class="lead">www.daragumard.com</span>
+                        <p class="lead">(849) 858-2406</p>
+
+                        <div class="table-responsive-xxl">
+
+                            <b-table-simple class="table" sticky-header="450px" fixed hover>
+
+                                <!-- TABLE TITLE -->
+                                <b-thead>
+                                    <b-tr>
+                                        <b-th>PRODUCTO</b-th>
+                                        <b-th>CANTIDAD</b-th>
+                                        <b-th>PRECIO</b-th>
+                                        <b-th>SUBTOTAL</b-th>
+                                    </b-tr>
+                                </b-thead>
+
+                                <!-- TABLE BODY -->
+                                <b-tbody>
+                                    <b-tr v-for="orderDetails in data.order_details" :key="orderDetails.product_id">
+                                        <b-td>{{orderDetails.product_name}}</b-td>
+                                        <b-td>{{orderDetails.quantity}}</b-td>
+                                        <b-td>RD$ {{orderDetails.product_price}}</b-td>
+                                        <b-td>RD$ {{(orderDetails.quantity * orderDetails.product_price).toFixed(2)}}</b-td>
+                                    </b-tr>
+                                </b-tbody>
+
+                            </b-table-simple>
+
+                        </div>
+
+                    </v-expansion-panel-content>
+
+                </v-expansion-panel>
+
+            </v-expansion-panels>
 
             <!-- <img v-show="(soldTickets.length === 0)" src="@/assets/images/no-data-found.png" alt="No Data Found"> -->
 
-            <section >
+            <section>
 
                 <form class="row my-5">
 
@@ -269,6 +334,7 @@ export default {
     computed: {
         ...mapState("productsStore", [
             "cart",
+            "selectedCart"
         ])
     },
 
@@ -283,14 +349,21 @@ export default {
         },
 
         getTotalAccount(){
-          var sum = 0;
-          this.cart.forEach(ele => {
-            sum += (+ele.element.price * ele.quantity);
-          });
-          if(this.cart.length == 0){
-            this.$router.push({ name: 'dashboard' })
-          }
-          return sum;
+            var sum = 0;
+
+            if(this.cart.length != 0){
+                this.cart.forEach(ele => {
+                    sum += (+ele.element.price * ele.quantity);
+                });
+            }
+            if(this.selectedCart.length != 0){
+                this.selectedCart.forEach(element => {
+                    element.order_details.forEach(ele => {
+                        sum += (+ele.product_price * ele.quantity);
+                    })
+                })
+            }
+            return sum;
         },
 
         validateInputs(){
@@ -308,12 +381,25 @@ export default {
 
                 this.orderDetails = [];
 
-                this.cart.forEach(ele => {
-                    this.orderDetails.push({
-                        product_id: ele.element.id,
-                        quantity: ele.quantity
+                if(this.cart.length != 0){
+                    this.cart.forEach(ele => {
+                        this.orderDetails.push({
+                            product_id: ele.element.id,
+                            quantity: ele.quantity
+                        })
+                    });
+                }
+
+                if(this.selectedCart.length != 0){
+                    this.selectedCart.forEach(element => {
+                        element.order_details.forEach(ele => {
+                            this.orderDetails.push({
+                                product_id: ele.product_id,
+                                quantity: ele.quantity
+                            })
+                        })
                     })
-                });
+                }
 
                 let json = {
                     order_type_id: this.selectedOrderType,
@@ -324,16 +410,16 @@ export default {
                     order_details: this.orderDetails
                 }
 
-                console.log(JSON.stringify(json, null, 3));
+                // console.log(JSON.stringify(json, null, 3));
 
-                // await restaurantApi.post('orders', json)
-                // .then(({data}) => {
-                //     console.log(data);
-                this.$router.push({ name: 'order-status' })
-                // })
-                // .catch(({response}) => {
-                //     console.error(response.data);
-                // })
+                await restaurantApi.post('orders', json)
+                .then(({data}) => {
+                    console.log(data);
+                    this.$router.push({ name: 'order-status' })
+                })
+                .catch(({response}) => {
+                    console.error(response.data);
+                })
 
             }
 
@@ -382,6 +468,10 @@ export default {
 
     async created(){
 
+        if(this.cart.length == 0 && this.selectedCart.length == 0){
+            this.$router.push({ name: 'dashboard' })
+        }
+
         navigator.geolocation.watchPosition(pos => {
             localStorage.setItem('longitude', pos.coords.longitude);
             localStorage.setItem('latitude', pos.coords.latitude);
@@ -417,7 +507,6 @@ export default {
         });
 
     },
-
 
 }
 

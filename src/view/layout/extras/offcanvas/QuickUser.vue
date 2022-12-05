@@ -108,13 +108,12 @@
           <h5 class="mb-5">Ultimas 4 compras</h5>
 
           <!-- ITEM -->
-          <router-link
+          <section
+            @click="goToPayment(data.id)"
             v-for="data in lastOrders"
             :key="data.id"
-            :to="{ name: 'payment' }"
             @click.native="closeOffcanvas"
-            href="#"
-            class="navi-item"
+            class="navi-item cursor-pointer"
           >
             <div class="navi-link text-hover-primary">
               <div class="symbol symbol-40 bg-light mr-3">
@@ -131,7 +130,7 @@
                 </div>
               </div>
             </div>
-          </router-link>
+          </section>
 
           <router-link :to="{ name: 'my-orders' }" class="btn btn-primary col-sm-12 mt-5">
             <i class="fas fa-eye"></i> Ver Más
@@ -225,9 +224,12 @@ import { LOGOUT } from "@/core/services/store/auth.module";
 import KTLayoutQuickUser from "@/assets/js/layout/extended/quick-user.js";
 import KTOffcanvas from "@/assets/js/components/offcanvas.js";
 import restaurantApi from '@/core/services/api/restaurantApi.js';
+import { mapMutations } from 'vuex';
 
 export default {
+
   name: "KTQuickUser",
+
   data() {
     return {
       user: {},
@@ -263,37 +265,59 @@ export default {
       ]
     };
   },
+
   async created(){
     await restaurantApi.get('orders/getLastFour')
     .then(({data}) => {
       data.data.forEach(ele => {
         this.lastOrders.push(ele);
       })
-      console.log(this.lastOrders);
     })
     .catch(({response}) => {
       console.error(response.data);
     })
   },
+
   mounted() {
     // Init Quick User Panel
     KTLayoutQuickUser.init(this.$refs["kt_quick_user"]);
     this.user = JSON.parse(localStorage.getItem("user"));
   },
+
   methods: {
+
+    ...mapMutations("productsStore", ["setSelectedCart"]),
+
+    async goToPayment(id){
+
+      await restaurantApi.get(`orders/${id}`)
+      .then(({data}) => {
+        this.setSelectedCart(data.data);
+        this.$router.push({ name: 'payment' });
+      })
+      .catch(({response}) => {
+        console.error(response.data);
+      })
+
+    },
+
     onLogout() {
       this.$store
         .dispatch(LOGOUT)
         .then(() => this.$router.go());
     },
+
     closeOffcanvas() {
       new KTOffcanvas(KTLayoutQuickUser.getElement()).hide();
     }
+
   },
+
   computed: {
     picture() {
       return process.env.BASE_URL + "media/users/300_21.jpg";
     }
-  }
+  },
+
 };
 </script>
