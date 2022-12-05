@@ -19,7 +19,7 @@
               </div>
 
               <div class="row">
-                <h5 class="lead">{{getDate()}}</h5>
+                <h5 class="lead">{{data.created_at.split('T')[0]}}</h5>
               </div>
 
             </div>
@@ -33,7 +33,7 @@
           <v-expansion-panel-content class="text-center">
   
             <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
-            <h4>{{getFullDate()}}</h4>
+            <h4>{{data.created_at.split('T')[0]}}, {{data.created_at.split('T')[1].slice(0, 8)}}</h4>
             <span class="lead">www.daragumard.com</span>
             <p class="lead">(849) 858-2406</p>
 
