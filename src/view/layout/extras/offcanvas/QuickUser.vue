@@ -109,6 +109,8 @@
 
           <!-- ITEM -->
           <router-link
+            v-for="data in lastOrders"
+            :key="data.id"
             :to="{ name: 'payment' }"
             @click.native="closeOffcanvas"
             href="#"
@@ -123,91 +125,9 @@
                 </div>
               </div>
               <div class="navi-text">
-                <div class="font-weight-bold">17/06/2022</div>
-                <div class="text-muted">
-                  Papas fritas, hamburguesa con doble carne, refresco de uva
-                </div>
-              </div>
-            </div>
-          </router-link>
-          
-          <!-- ITEM -->
-          <router-link
-            :to="{ name: 'payment' }"
-            @click.native="closeOffcanvas"
-            href="#"
-            class="navi-item"
-          >
-            <div class="navi-link text-hover-primary">
-              <div class="symbol symbol-40 bg-light mr-3">
-                <div class="symbol-label">
-                  <span class="svg-icon svg-icon-md svg-icon-success">
-                    <i class="fas fa-eye"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="navi-text">
-                <div class="font-weight-bold">23/03/2022</div>
-                <div class="text-muted">
-                  Sopa de pollo, arroz blanco, botella de agua, aguacate
-                </div>
-              </div>
-            </div>
-          </router-link>
-          
-          <!-- ITEM -->
-          <router-link
-            :to="{ name: 'payment' }"
-            @click.native="closeOffcanvas"
-            href="#"
-            class="navi-item"
-          >
-            <div class="navi-link text-hover-primary">
-              <div class="symbol symbol-40 bg-light mr-3">
-                <div class="symbol-label">
-                  <span class="svg-icon svg-icon-md svg-icon-success">
-                    <i class="fas fa-eye"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="navi-text">
-                <div class="font-weight-bold">27/02/2022</div>
-                <div class="text-muted">
-                  Pollo con tostones, papas y batata frita, refrescos, botellas de agua
-                  <!-- <span
-                    class="label label-light-danger label-inline font-weight-bold"
-                  >
-                    update
-                  </span> -->
-                </div>
-              </div>
-            </div>
-          </router-link>
-          
-          <!-- ITEM -->
-          <router-link
-            :to="{ name: 'payment' }"
-            @click.native="closeOffcanvas"
-            href="#"
-            class="navi-item"
-          >
-            <div class="navi-link text-hover-primary">
-              <div class="symbol symbol-40 bg-light mr-3">
-                <div class="symbol-label">
-                  <span class="svg-icon svg-icon-md svg-icon-success">
-                    <i class="fas fa-eye"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="navi-text">
-                <div class="font-weight-bold">14/02/2022</div>
-                <div class="text-muted">
-                  Moro de guandule, carne de res, ensalada rusa, jugo de tamarindo
-                  <!-- <span
-                    class="label label-light-danger label-inline font-weight-bold"
-                  >
-                    update
-                  </span> -->
+                <div class="font-weight-bold">{{data.created_at.split('T')[0]}}</div>
+                <div class="text-muted" v-for="(orderDetail, index) in data.order_details" :key="index">
+                  {{orderDetail.product_name}}
                 </div>
               </div>
             </div>
@@ -304,12 +224,14 @@
 import { LOGOUT } from "@/core/services/store/auth.module";
 import KTLayoutQuickUser from "@/assets/js/layout/extended/quick-user.js";
 import KTOffcanvas from "@/assets/js/components/offcanvas.js";
+import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
   name: "KTQuickUser",
   data() {
     return {
       user: {},
+      lastOrders: [],
       list: [
         {
           title: "Cupon de Hamburguesas Ricas",
@@ -340,6 +262,18 @@ export default {
         }
       ]
     };
+  },
+  async created(){
+    await restaurantApi.get('orders/getLastFour')
+    .then(({data}) => {
+      data.data.forEach(ele => {
+        this.lastOrders.push(ele);
+      })
+      console.log(this.lastOrders);
+    })
+    .catch(({response}) => {
+      console.error(response.data);
+    })
   },
   mounted() {
     // Init Quick User Panel
