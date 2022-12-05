@@ -62,12 +62,10 @@
                 </b-tbody>
 
               </b-table-simple>
-              
-              <router-link :to="{ name: 'payment' }">
-                <b-button size="lg" variant="primary" class="col-sm-5 my-5">
-                  <i class="fas fa-redo-alt"></i> Volver a Ordenar
-                </b-button>
-              </router-link>
+
+              <b-button @click="goToPayment(data.id)" size="lg" variant="primary" class="col-sm-5 my-5">
+                <i class="fas fa-redo-alt"></i> Volver a Ordenar
+              </b-button>
 
             </div>
 
@@ -88,6 +86,7 @@
 <script>
 
 import restaurantApi from '@/core/services/api/restaurantApi';
+import { mapMutations } from 'vuex';
 
 export default {
 
@@ -99,6 +98,21 @@ export default {
   },
 
   methods: {
+
+    ...mapMutations("productsStore", ["setSelectedCart"]),
+
+    async goToPayment(id){
+
+      await restaurantApi.get(`orders/${id}`)
+      .then(({data}) => {
+        this.setSelectedCart(data.data);
+        this.$router.push({ name: 'payment' });
+      })
+      .catch(({response}) => {
+        console.error(response.data);
+      })
+
+    },
 
     getDate(){
       return new Date().toLocaleDateString('es-ES');
