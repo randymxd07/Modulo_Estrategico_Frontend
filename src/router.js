@@ -11,6 +11,11 @@ export default new Router({
       component: () => import("@/view/layout/Layout"),
       children: [
         {
+          path: 'order-status',
+          name: 'order-status',
+          component: () => import('@/view/pages/orders/OrderStatus.vue')
+        },
+        {
           path: '/create-product',
           name: 'create-product',
           component: () => import('@/view/pages/other_views/CreateProduct.vue')
