@@ -30,12 +30,17 @@ export default {
         };
     },
 
+    destroyed(){
+        if(this.$router.history.current.name == 'payment'){
+            this.$router.push({ name: 'order-status' })
+        }
+    },
+
     methods: {
         finish() {
             console.log('finish');
         }
     }
-    
 
 }
 
