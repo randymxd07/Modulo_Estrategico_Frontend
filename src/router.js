@@ -4,17 +4,18 @@ import Router from "vue-router";
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
+    {
+      path: '/order-status',
+      name: 'order-status',
+      component: () => import('@/view/pages/orders/OrderStatus.vue')
+    },
     {
       path: "/",
       redirect: "/dashboard",
       component: () => import("@/view/layout/Layout"),
       children: [
-        {
-          path: 'order-status',
-          name: 'order-status',
-          component: () => import('@/view/pages/orders/OrderStatus.vue')
-        },
         {
           path: '/create-product',
           name: 'create-product',
