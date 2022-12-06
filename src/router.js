@@ -37,6 +37,11 @@ export default new Router({
           component: () => import("@/view/pages/payment/PaymentView")
         },
         {
+          path: '/selected-payment',
+          name: 'selected-payment',
+          component: () => import("@/view/pages/payment/SelectedCartPayment")
+        },
+        {
           path: '/my-address',
           name: 'my-address',
           component: () => import("@/view/pages/addressess/MyAddresess")

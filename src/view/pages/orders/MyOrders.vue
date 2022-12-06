@@ -106,7 +106,7 @@ export default {
       await restaurantApi.get(`orders/${id}`)
       .then(({data}) => {
         this.setSelectedCart(data.data);
-        this.$router.push({ name: 'payment' });
+        this.$router.push({ name: 'selected-payment' });
       })
       .catch(({response}) => {
         console.error(response.data);

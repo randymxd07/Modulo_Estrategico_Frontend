@@ -5,17 +5,17 @@
         <h3 class="mb-10">Realizar Pago</h3>
         
         <v-app>
+            
+            <v-expansion-panels v-model="panel" multiple style="border-radius: 20px">
 
-            <v-expansion-panels v-if="cart.length != 0"  v-model="panel" multiple style="border-radius: 20px">
-
-                <v-expansion-panel v-for="data in 1" :key="data.id">
+                <v-expansion-panel v-for="data in selectedCart" :key="data.id">
 
                     <v-expansion-panel-header>
 
                         <div class="col-sm-12 col-md-6 text-left">
 
                             <div class="row">
-                                <h3>{{fullname}}</h3>
+                                <h3>{{data.fullname}}</h3>
                             </div>
 
                             <div class="row">
@@ -30,8 +30,8 @@
 
                     </v-expansion-panel-header>
 
-                    <v-expansion-panel-content v-if="cart.length != 0" class="text-center">
-            
+                    <v-expansion-panel-content class="text-center">
+
                         <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
                         <h4>{{getFullDate()}}</h4>
                         <span class="lead">www.daragumard.com</span>
@@ -52,12 +52,12 @@
                                 </b-thead>
 
                                 <!-- TABLE BODY -->
-                                <b-tbody v-for="data in cart" :key="data.id">
-                                    <b-tr>
-                                        <b-td>{{data.element.name}}</b-td>
-                                        <b-td>{{data.quantity}}</b-td>
-                                        <b-td>RD$ {{data.element.price}}</b-td>
-                                        <b-td>RD$ {{(data.quantity * data.element.price).toFixed(2)}}</b-td>
+                                <b-tbody>
+                                    <b-tr v-for="orderDetails in data.order_details" :key="orderDetails.product_id">
+                                        <b-td>{{orderDetails.product_name}}</b-td>
+                                        <b-td>{{orderDetails.quantity}}</b-td>
+                                        <b-td>RD$ {{orderDetails.product_price}}</b-td>
+                                        <b-td>RD$ {{(orderDetails.quantity * orderDetails.product_price).toFixed(2)}}</b-td>
                                     </b-tr>
                                 </b-tbody>
 
@@ -70,7 +70,7 @@
                 </v-expansion-panel>
 
             </v-expansion-panels>
-            
+
             <!-- <img v-show="(soldTickets.length === 0)" src="@/assets/images/no-data-found.png" alt="No Data Found"> -->
 
             <section>
@@ -268,7 +268,6 @@ export default {
 
     computed: {
         ...mapState("productsStore", [
-            "cart",
             "selectedCart"
         ])
     },
@@ -285,19 +284,11 @@ export default {
 
         getTotalAccount(){
             var sum = 0;
-
-            if(this.cart.length != 0){
-                this.cart.forEach(ele => {
-                    sum += (+ele.element.price * ele.quantity);
-                });
-            }
-            if(this.selectedCart.length != 0){
-                this.selectedCart.forEach(element => {
-                    element.order_details.forEach(ele => {
-                        sum += (+ele.product_price * ele.quantity);
-                    })
+            this.selectedCart.forEach(element => {
+                element.order_details.forEach(ele => {
+                    sum += (+ele.product_price * ele.quantity);
                 })
-            }
+            })
             return sum;
         },
 
@@ -316,14 +307,14 @@ export default {
 
                 this.orderDetails = [];
 
-                if(this.cart.length != 0){
-                    this.cart.forEach(ele => {
+                this.selectedCart.forEach(element => {
+                    element.order_details.forEach(ele => {
                         this.orderDetails.push({
-                            product_id: ele.element.id,
+                            product_id: ele.product_id,
                             quantity: ele.quantity
                         })
-                    });
-                }
+                    })
+                })
 
                 let json = {
                     order_type_id: this.selectedOrderType,
@@ -357,12 +348,14 @@ export default {
 
                 this.orderDetails = [];
 
-                this.cart.forEach(ele => {
-                    this.orderDetails.push({
-                        product_id: ele.element.id,
-                        quantity: ele.quantity
+                this.selectedCart.forEach(element => {
+                    element.order_details.forEach(ele => {
+                        this.orderDetails.push({
+                            product_id: ele.product_id,
+                            quantity: ele.quantity
+                        })
                     })
-                });
+                })
 
                 let json = {
                     order_type_id: this.selectedOrderType,
@@ -392,7 +385,7 @@ export default {
 
     async created(){
 
-        if(this.cart.length == 0){
+        if(this.selectedCart.length == 0){
             this.$router.push({ name: 'dashboard' })
         }
 
