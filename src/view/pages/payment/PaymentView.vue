@@ -336,14 +336,14 @@ export default {
 
                 console.log(JSON.stringify(json, null, 3));
 
-                // await restaurantApi.post('orders', json)
-                // .then(({data}) => {
-                //     console.log(data);
+                await restaurantApi.post('orders', json)
+                .then(({data}) => {
+                    console.log(data);
                     this.$router.push({ name: 'order-status' })
-                // })
-                // .catch(({response}) => {
-                //     console.error(response.data);
-                // })
+                })
+                .catch(({response}) => {
+                    console.error(response.data);
+                })
 
             }
 
@@ -375,14 +375,14 @@ export default {
 
                 console.log(JSON.stringify(json, null, 3));
 
-                // await restaurantApi.post('orders', json)
-                // .then(({data}) => {
-                //     console.log(data);
-                this.$router.push({ name: 'order-status' })
-                // })
-                // .catch(({response}) => {
-                //     console.error(response.data);
-                // })
+                await restaurantApi.post('orders', json)
+                .then(({data}) => {
+                    console.log(data);
+                    this.$router.push({ name: 'order-status' })
+                })
+                .catch(({response}) => {
+                    console.error(response.data);
+                })
 
             }
 
