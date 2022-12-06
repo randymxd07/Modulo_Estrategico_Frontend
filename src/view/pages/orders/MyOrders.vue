@@ -8,70 +8,79 @@
 
       <v-expansion-panels>
 
-        <v-expansion-panel class="mb-5" multiple style="border-radius: 20px" v-for="(data, index) in orders" :key="index">
+        <v-infinite-scroll
+          class="col-sm-12"
+          :loading="loading" 
+          @top="prevPage" 
+          @bottom="nextPage" 
+          :offset='20' 
+          style="max-height: 75vh; overflow-y: scroll;"
+        >
+          <v-expansion-panel class="mb-5" multiple style="border-radius: 20px" v-for="(data, index) in orders" :key="index">
 
-          <v-expansion-panel-header>
+            <v-expansion-panel-header>
 
-            <div class="col-sm-12 col-md-6 text-left">
+              <div class="col-sm-12 col-md-6 text-left">
 
-              <div class="row">
-                <h3>{{fullname}}</h3>
+                <div class="row">
+                  <h3>{{fullname}}</h3>
+                </div>
+
+                <div class="row">
+                  <h5 class="lead">{{data.created_at.split(' ')[0]}}</h5>
+                </div>
+
               </div>
 
-              <div class="row">
-                <h5 class="lead">{{data.created_at.split(' ')[0]}}</h5>
+              <div class="col-sm-12 col-md-6 text-right">
+                <h5>TOTAL A PAGADO: <span class="text-primary">RD$ {{getTotalAccount(data.order_details).toFixed(2)}}</span></h5>
               </div>
 
-            </div>
+            </v-expansion-panel-header>
 
-            <div class="col-sm-12 col-md-6 text-right">
-              <h5>TOTAL A PAGADO: <span class="text-primary">RD$ {{getTotalAccount(data.order_details).toFixed(2)}}</span></h5>
-            </div>
+            <v-expansion-panel-content class="text-center">
+    
+              <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
+              <h4>{{data.created_at.split(' ')[0]}}, {{data.created_at.split(' ')[1].slice(0, 8)}}</h4>
+              <span class="lead">www.daragumard.com</span>
+              <p class="lead">(849) 858-2406</p>
 
-          </v-expansion-panel-header>
+              <div class="table-responsive-xxl">
 
-          <v-expansion-panel-content class="text-center">
-  
-            <img class="img-fluid bg-primary mb-5" width="600px" height="200px" src="assets/daraguma-banner.png" alt="Daraguma Image">
-            <h4>{{data.created_at.split(' ')[0]}}, {{data.created_at.split(' ')[1].slice(0, 8)}}</h4>
-            <span class="lead">www.daragumard.com</span>
-            <p class="lead">(849) 858-2406</p>
+                <b-table-simple class="table" sticky-header="450px" fixed hover>
 
-            <div class="table-responsive-xxl">
+                  <!-- TABLE TITLE -->
+                  <b-thead>
+                    <b-tr>
+                      <b-th>PRODUCTO</b-th>
+                      <b-th>CANTIDAD</b-th>
+                      <b-th>PRECIO</b-th>
+                      <b-th>SUBTOTAL</b-th>
+                    </b-tr>
+                  </b-thead>
 
-              <b-table-simple class="table" sticky-header="450px" fixed hover>
+                  <!-- TABLE BODY -->
+                  <b-tbody v-for="(orderDetail, index) in data.order_details" :key="index">
+                    <b-tr>
+                      <b-td>{{orderDetail.product_name}}</b-td>
+                      <b-td>{{orderDetail.quantity}}</b-td>
+                      <b-td>RD$ {{orderDetail.product_price}}</b-td>
+                      <b-td>RD$ {{(orderDetail.quantity * orderDetail.product_price).toFixed(2)}}</b-td>
+                    </b-tr>
+                  </b-tbody>
 
-                <!-- TABLE TITLE -->
-                <b-thead>
-                  <b-tr>
-                    <b-th>PRODUCTO</b-th>
-                    <b-th>CANTIDAD</b-th>
-                    <b-th>PRECIO</b-th>
-                    <b-th>SUBTOTAL</b-th>
-                  </b-tr>
-                </b-thead>
+                </b-table-simple>
 
-                <!-- TABLE BODY -->
-                <b-tbody v-for="(orderDetail, index) in data.order_details" :key="index">
-                  <b-tr>
-                    <b-td>{{orderDetail.product_name}}</b-td>
-                    <b-td>{{orderDetail.quantity}}</b-td>
-                    <b-td>RD$ {{orderDetail.product_price}}</b-td>
-                    <b-td>RD$ {{(orderDetail.quantity * orderDetail.product_price).toFixed(2)}}</b-td>
-                  </b-tr>
-                </b-tbody>
+                <b-button @click="goToPayment(data.id)" size="lg" variant="primary" class="col-sm-5 my-5">
+                  <i class="fas fa-redo-alt"></i> Volver a Ordenar
+                </b-button>
 
-              </b-table-simple>
+              </div>
 
-              <b-button @click="goToPayment(data.id)" size="lg" variant="primary" class="col-sm-5 my-5">
-                <i class="fas fa-redo-alt"></i> Volver a Ordenar
-              </b-button>
+            </v-expansion-panel-content>
 
-            </div>
-
-          </v-expansion-panel-content>
-
-        </v-expansion-panel>
+          </v-expansion-panel>
+        </v-infinite-scroll>
 
       </v-expansion-panels>
 
