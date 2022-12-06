@@ -295,9 +295,9 @@ export default {
         this.setSelectedCart(data.data);
         this.$router.push({ name: 'selected-payment' });
       })
-      .catch(({response}) => {
-        console.error(response.data);
-      })
+      // .catch(({response}) => {
+      //   console.error(response.data);
+      // })
 
     },
 
