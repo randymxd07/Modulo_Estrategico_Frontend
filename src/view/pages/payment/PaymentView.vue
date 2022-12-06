@@ -285,18 +285,10 @@ export default {
 
         getTotalAccount(){
             var sum = 0;
-
             if(this.cart.length != 0){
                 this.cart.forEach(ele => {
                     sum += (+ele.element.price * ele.quantity);
                 });
-            }
-            if(this.selectedCart.length != 0){
-                this.selectedCart.forEach(element => {
-                    element.order_details.forEach(ele => {
-                        sum += (+ele.product_price * ele.quantity);
-                    })
-                })
             }
             return sum;
         },
@@ -334,7 +326,7 @@ export default {
                     order_details: this.orderDetails
                 }
 
-                console.log(JSON.stringify(json, null, 3));
+                // console.log(JSON.stringify(json, null, 3));
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
@@ -373,7 +365,7 @@ export default {
                     order_details: this.orderDetails
                 }
 
-                console.log(JSON.stringify(json, null, 3));
+                // console.log(JSON.stringify(json, null, 3));
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
