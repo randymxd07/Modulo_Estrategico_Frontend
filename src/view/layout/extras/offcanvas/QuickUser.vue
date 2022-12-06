@@ -124,7 +124,7 @@
                 </div>
               </div>
               <div class="navi-text">
-                <div class="font-weight-bold">{{data.created_at.split('T')[0]}}</div>
+                <div class="font-weight-bold">{{data.created_at.split(' ')[0]}}</div>
                 <div class="text-muted" v-for="(orderDetail, index) in data.order_details" :key="index">
                   {{orderDetail.product_name}}
                 </div>
@@ -293,7 +293,7 @@ export default {
       await restaurantApi.get(`orders/${id}`)
       .then(({data}) => {
         this.setSelectedCart(data.data);
-        this.$router.push({ name: 'payment' });
+        this.$router.push({ name: 'selected-payment' });
       })
       .catch(({response}) => {
         console.error(response.data);

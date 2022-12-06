@@ -12,6 +12,11 @@ export default new Router({
       component: () => import('@/view/pages/orders/OrderStatus.vue')
     },
     {
+      path: '/selected-order-status',
+      name: 'selected-order-status',
+      component: () => import('@/view/pages/orders/SelectedOrderStatus.vue')
+    },
+    {
       path: "/",
       redirect: "/dashboard",
       component: () => import("@/view/layout/Layout"),

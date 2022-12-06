@@ -44,6 +44,8 @@ export const setSelectedCart = ( state, product ) => {
 
     state.selectedCart.push(product);
 
+    localStorage.setItem('selectedCart', JSON.stringify(product));
+
 }
 
 export const increment = ( state, product ) => {

@@ -325,12 +325,12 @@ export default {
                     order_details: this.orderDetails
                 }
 
-                console.log(JSON.stringify(json, null, 3));
+                // console.log(JSON.stringify(json, null, 3));
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
                     console.log(data);
-                    this.$router.push({ name: 'order-status' })
+                    this.$router.push({ name: 'selected-order-status' })
                 })
                 .catch(({response}) => {
                     console.error(response.data);
@@ -366,12 +366,12 @@ export default {
                     order_details: this.orderDetails
                 }
 
-                console.log(JSON.stringify(json, null, 3));
+                // console.log(JSON.stringify(json, null, 3));
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
                     console.log(data);
-                    this.$router.push({ name: 'order-status' })
+                    this.$router.push({ name: 'selected-order-status' })
                 })
                 .catch(({response}) => {
                     console.error(response.data);

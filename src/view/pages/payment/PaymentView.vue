@@ -384,6 +384,8 @@ export default {
 
     async created(){
 
+        // console.log(this.cart);
+
         if(this.cart.length == 0){
             this.$router.push({ name: 'dashboard' })
         }
