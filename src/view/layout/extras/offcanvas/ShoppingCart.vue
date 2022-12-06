@@ -123,6 +123,14 @@
             <i class="fas fa-money-bill-alt"></i> Ir a Pagar
           </router-link>
 
+          <section class="my-5">
+            <hr>
+            <h3 class="font-weight-bold m-0">
+              Recomendado para ti
+            </h3>
+          </section>
+
+
         </div>
 
       </div>
