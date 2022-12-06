@@ -30,7 +30,6 @@
         </section>
 
     </main>
-
 </template>
 
 <script>
