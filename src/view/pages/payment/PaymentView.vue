@@ -331,11 +331,12 @@ export default {
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
                     console.log(data);
+                    localStorage.setItem('paymentOrders', JSON.stringify(this.cart));
                     this.$router.push({ name: 'order-status' })
                 })
-                .catch(({response}) => {
-                    console.error(response.data);
-                })
+                // .catch(({response}) => {
+                //     console.error(response.data);
+                // })
 
             }
 

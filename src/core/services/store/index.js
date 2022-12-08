@@ -6,7 +6,8 @@ import htmlClass from "./htmlclass.module";
 import config from "./config.module";
 import breadcrumbs from "./breadcrumbs.module";
 import profile from "./profile.module";
-import productsStore from "./products"
+import productsStore from "./products";
+import orderStatusStore from "./order-status";
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     breadcrumbs,
     profile,
     productsStore,
+    orderStatusStore,
   }
 });
