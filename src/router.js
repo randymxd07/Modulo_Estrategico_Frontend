@@ -7,6 +7,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/selected-order-kitchen',
+      name: 'selected-order-kitchen',
+      component: () => import('@/view/pages/kitchen/SelectedOrderKitchen.vue')
+    },
+    {
       path: '/kitchen',
       name: 'kitchen',
       component: () => import('@/view/pages/kitchen/KitchenView.vue')

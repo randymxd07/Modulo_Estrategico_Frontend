@@ -316,25 +316,26 @@ export default {
                     })
                 })
 
-                let json = {
-                    order_type_id: this.selectedOrderType,
-                    payment_method_id: this.selectedPaymentMethod,
-                    latitude: localStorage.getItem('latitude'),
-                    longitude: localStorage.getItem('longitude'),
-                    status: true,
-                    order_details: this.orderDetails
-                }
+                // let json = {
+                //     order_type_id: this.selectedOrderType,
+                //     payment_method_id: this.selectedPaymentMethod,
+                //     latitude: localStorage.getItem('latitude'),
+                //     longitude: localStorage.getItem('longitude'),
+                //     status: true,
+                //     order_details: this.orderDetails
+                // }
 
                 // console.log(JSON.stringify(json, null, 3));
 
-                await restaurantApi.post('orders', json)
-                .then(({data}) => {
-                    console.log(data);
+                // await restaurantApi.post('orders', json)
+                // .then(({data}) => {
+                //     console.log(data);
+                    localStorage.setItem('paymentOrders', JSON.stringify(this.selectedCart));
                     this.$router.push({ name: 'selected-order-status' })
-                })
-                .catch(({response}) => {
-                    console.error(response.data);
-                })
+                // })
+                // .catch(({response}) => {
+                //     console.error(response.data);
+                // })
 
             }
 
@@ -371,11 +372,12 @@ export default {
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
                     console.log(data);
+                    localStorage.setItem('paymentOrders', JSON.stringify(this.selectedCart));
                     this.$router.push({ name: 'selected-order-status' })
                 })
-                .catch(({response}) => {
-                    console.error(response.data);
-                })
+                // .catch(({response}) => {
+                //     console.error(response.data);
+                // })
 
             }
 

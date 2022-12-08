@@ -41,13 +41,13 @@
                 Nuevas
             </h3>
             <section v-if="newOrders.length != 0">
-                <div class="card my-5" v-for="(elem, index) in 1" :key="index">
+                <div class="card my-5" v-for="(elem, index) in newOrders" :key="index">
                     <h4 class="card-header">
                         {{fullname}}
                     </h4>
-                    <div class="p-5 m-0" v-for="data in newOrders" :key="data.element.id">
+                    <div class="p-5 m-0" v-for="data in elem.order_details" :key="data">
                         <p class="text-muted">
-                            {{data.element.name}}
+                            {{data.product_name}}
                             <span>
                                 <b-badge>{{data.quantity}}</b-badge>
                             </span>
@@ -65,13 +65,13 @@
                 Preparandose
             </h3>
             <section v-if="ordersInPreparation.length != 0">
-                <div class="card my-5" v-for="(elem, index) in 1" :key="index">
+                <div class="card my-5" v-for="(elem, index) in ordersInPreparation" :key="index">
                     <h4 class="card-header">
                         {{fullname}}
                     </h4>
-                    <div class="p-5 m-0" v-for="data in ordersInPreparation" :key="data.element.id">
+                    <div class="p-5 m-0" v-for="data in elem.order_details" :key="data">
                         <p class="text-muted">
-                            {{data.element.name}}
+                            {{data.product_name}}
                             <span>
                                 <b-badge>{{data.quantity}}</b-badge>
                             </span>
@@ -89,13 +89,13 @@
                 Terminadas
             </h3>
             <section v-if="finishedOrders.length != 0">
-                <div class="card my-5" v-for="(elem, index) in 1" :key="index">
+                <div class="card my-5" v-for="(elem, index) in finishedOrders" :key="index">
                     <h4 class="card-header">
                         {{fullname}}
                     </h4>
-                    <div class="p-5 m-0" v-for="data in finishedOrders" :key="data.element.id">
+                    <div class="p-5 m-0" v-for="data in elem.order_details" :key="data">
                         <p class="text-muted">
-                            {{data.element.name}}
+                            {{data.product_name}}
                             <span>
                                 <b-badge>{{data.quantity}}</b-badge>
                             </span>
@@ -159,7 +159,7 @@ export default {
 
         const orders = JSON.parse(localStorage.getItem('paymentOrders'));
 
-        if(orders != null){
+        if(orders.length != 0){
             this.haveOrders = true;
         } else {
             this.setOrderStatus('new');
@@ -167,7 +167,7 @@ export default {
         
         this.fullname = JSON.parse(localStorage.getItem("user")).fullname;
         this.newOrders = JSON.parse(localStorage.getItem('paymentOrders'));
-        
+
     }
 
 }

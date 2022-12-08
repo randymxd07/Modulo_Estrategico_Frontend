@@ -73,7 +73,6 @@ export default {
     data () {
         return {
             end: '',
-            orderIsReady: false,
         };
     },
 
@@ -134,8 +133,6 @@ export default {
         ...mapMutations("orderStatusStore", ["setOrderStatus"]),
 
         finish() {
-            // TODO MOSTRAR LA FINALIZACION DE LA ORDEN //
-            this.orderIsReady = true;
             localStorage.removeItem('cart');
             localStorage.removeItem('estimated_time');
             localStorage.removeItem('paymentOrders');
@@ -145,8 +142,6 @@ export default {
         },
         
         finish2() {
-            // TODO MOSTRAR LA FINALIZACION DE LA ORDEN //
-            this.orderIsReady = true;
             localStorage.removeItem('cart');
             localStorage.removeItem('estimated_time');
             localStorage.removeItem('paymentOrders');
