@@ -156,12 +156,26 @@ export default {
 
         },
         
-        setFinishedOrders(){
+        async setFinishedOrders(){
+
             this.ordersInPreparation.forEach(ele => {
                 this.finishedOrders.push(ele);
             });
+
             this.ordersInPreparation = [];
+
             this.setOrderStatus('finished');
+
+            const order_id = localStorage.getItem('order_id');
+
+            await restaurantApi.post(`orders/sendOrderFinishedEmail/${order_id}`)
+            .then(({data}) => {
+                console.log(data);
+            })
+            .catch(({response}) => {
+                console.log(response.data);
+            })
+
         },
 
         finish(){

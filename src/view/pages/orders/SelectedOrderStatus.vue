@@ -57,6 +57,7 @@
 
 import Countdown from "@/view/pages/components/Countdown.vue";
 import { mapMutations, mapState } from 'vuex';
+import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
 
@@ -136,7 +137,7 @@ export default {
 
         ...mapMutations("orderStatusStore", ["setOrderStatus"]),
 
-        finish() {
+        async finish() {
             localStorage.removeItem('selectedCart');
             localStorage.removeItem('selected_estimated_time');
             localStorage.removeItem('paymentOrders');
@@ -144,6 +145,19 @@ export default {
             localStorage.removeItem('latitude');
             localStorage.removeItem('order_id');
             this.setOrderStatus('finished');
+
+            const order_id = localStorage.getItem('order_id');
+
+            await restaurantApi.post(`orders/sendOrderFinishedEmail/${order_id}`)
+            .then(({data}) => {
+                console.log(data);
+            })
+            .catch(({response}) => {
+                console.log(response.data);
+            })
+
+            localStorage.removeItem('orderStatus');
+
         },
 
         finish2() {
