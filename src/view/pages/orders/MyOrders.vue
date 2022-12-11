@@ -101,6 +101,8 @@ export default {
 
   data(){
     return{
+      offsetOrders: 0,
+      limitOrders: 10,
       fullname: '',
       orders: [],
     }
@@ -109,6 +111,20 @@ export default {
   methods: {
 
     ...mapMutations("productsStore", ["setSelectedCart"]),
+
+    nextPage () {
+      this.loading = true;
+      this.orders = [];
+      // this.offsetOrders += 10;
+      this.limitOrders += 10;
+      restaurantApi.get(`orders/?offset=${this.offsetOrders}&limit=${this.limitOrders}`)
+      .then(({data}) => {
+        data.data.forEach(ele => {
+          this.orders.push(ele);
+        })
+        this.loading = false
+      })
+    },
 
     async goToPayment(id){
 
@@ -145,7 +161,7 @@ export default {
 
     this.fullname = JSON.parse(localStorage.getItem('user')).fullname;
 
-    await restaurantApi.get('orders')
+    await restaurantApi.get(`orders/?limit=${this.limitOrders}`)
     .then(({data}) => {
       data.data.forEach(ele => {
         this.orders.push(ele);
