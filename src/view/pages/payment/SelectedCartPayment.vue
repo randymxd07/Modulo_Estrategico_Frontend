@@ -329,8 +329,9 @@ export default {
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
-                    console.log(data);
+                    // console.log(data);
                     localStorage.setItem('paymentOrders', JSON.stringify(this.selectedCart));
+                    localStorage.setItem('order_id', JSON.stringify(data.data.id));
                     this.$router.push({ name: 'selected-order-status' })
                 })
                 // .catch(({response}) => {
@@ -371,8 +372,9 @@ export default {
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
-                    console.log(data);
+                    // console.log(data);
                     localStorage.setItem('paymentOrders', JSON.stringify(this.selectedCart));
+                    localStorage.setItem('order_id', JSON.stringify(data.data.id));
                     this.$router.push({ name: 'selected-order-status' })
                 })
                 // .catch(({response}) => {

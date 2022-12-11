@@ -142,6 +142,7 @@ export default {
             localStorage.removeItem('paymentOrders');
             localStorage.removeItem('longitude');
             localStorage.removeItem('latitude');
+            localStorage.removeItem('order_id');
             this.setOrderStatus('finished');
         },
 
@@ -151,6 +152,7 @@ export default {
             localStorage.removeItem('paymentOrders');
             localStorage.removeItem('longitude');
             localStorage.removeItem('latitude');
+            localStorage.removeItem('order_id');
             localStorage.removeItem('orderStatus');
         }
 

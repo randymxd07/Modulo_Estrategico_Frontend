@@ -116,6 +116,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import restaurantApi from '@/core/services/api/restaurantApi.js';
 
 export default {
     
@@ -133,12 +134,26 @@ export default {
         
         ...mapMutations("orderStatusStore", ["setOrderStatus"]),
 
-        setOrdersInPreparation(){
+        async setOrdersInPreparation(){
+
             this.newOrders.forEach(ele => {
                 this.ordersInPreparation.push(ele);
             });
+
             this.newOrders = [];
+
             this.setOrderStatus('inPreparation');
+
+            const order_id = localStorage.getItem('order_id');
+
+            await restaurantApi.post(`orders/sendOrderInPreparationEmail/${order_id}`)
+            .then(({data}) => {
+                console.log(data);
+            })
+            .catch(({response}) => {
+                console.log(response.data);
+            })
+
         },
         
         setFinishedOrders(){
