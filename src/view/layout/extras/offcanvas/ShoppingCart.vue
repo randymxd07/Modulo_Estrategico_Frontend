@@ -106,7 +106,7 @@
             </a>
           </template>
 
-          <hr>
+          <hr v-if="cart.length != 0">
 
           <!-- TOTAL PAYMENT -->
           <section v-if="cart.length != 0" class="my-5">
