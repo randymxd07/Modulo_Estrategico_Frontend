@@ -157,6 +157,10 @@ export default {
 
     created(){
 
+        setTimeout(() => {
+            this.$router.go();
+        }, 10000);
+
         const orders = JSON.parse(localStorage.getItem('paymentOrders'));
 
         if(orders.length != 0){
@@ -166,7 +170,18 @@ export default {
         }
         
         this.fullname = JSON.parse(localStorage.getItem("user")).fullname;
-        this.newOrders = JSON.parse(localStorage.getItem('paymentOrders'));
+        
+        if(localStorage.getItem('orderStatus') == "new"){
+            this.newOrders = JSON.parse(localStorage.getItem('paymentOrders'));
+        }
+
+        if(localStorage.getItem('orderStatus') == "inPreparation"){
+            this.ordersInPreparation = JSON.parse(localStorage.getItem('paymentOrders'))
+        }
+
+        if(localStorage.getItem('orderStatus') == "finished"){
+            this.finishedOrders = JSON.parse(localStorage.getItem('paymentOrders'))
+        }
 
     }
 

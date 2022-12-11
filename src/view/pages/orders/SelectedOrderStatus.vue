@@ -90,6 +90,10 @@ export default {
 
         if(orderStatus == "inPreparation"){
 
+            setTimeout(() => {
+                this.$router.go();
+            }, 10000);
+
             if(localStorage.getItem('selected_estimated_time') == null){
     
                 let sumMins = 0;
