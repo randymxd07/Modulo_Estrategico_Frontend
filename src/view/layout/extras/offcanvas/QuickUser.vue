@@ -102,17 +102,16 @@
         <!---------------------
             SHOPPING HISTORY
         ----------------------->
-        <div class="navi navi-spacer-x-0 p-0">
+        <section class="navi navi-spacer-x-0 p-0">
           
           <!-- HEADING -->
           <h5 class="mb-5">Ultimas 4 compras</h5>
 
           <!-- ITEM -->
-          <section
+          <div
             @click="goToPayment(data.id)"
             v-for="data in lastOrders"
             :key="data.id"
-            @click.native="closeOffcanvas"
             class="navi-item cursor-pointer"
           >
             <div class="navi-link text-hover-primary">
@@ -130,13 +129,13 @@
                 </div>
               </div>
             </div>
-          </section>
+          </div>
 
           <router-link :to="{ name: 'my-orders' }" class="btn btn-primary col-sm-12 mt-5">
             <i class="fas fa-eye"></i> Ver Más
           </router-link>
 
-        </div>
+        </section>
 
         <!-- SEPARATOR -->
         <div class="separator separator-dashed my-7"></div>

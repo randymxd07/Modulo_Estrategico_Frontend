@@ -2,6 +2,9 @@
 
 // }
 
+/*--------------------------
+    SET PRODUCTS FUNCTION
+----------------------------*/
 export const setProducts = ( state, products ) => {
 
     state.products = [];
@@ -12,6 +15,22 @@ export const setProducts = ( state, products ) => {
 
 }
 
+/*--------------------------------------
+    SET RECOMMENDED PRODUCTS FUNCTION
+----------------------------------------*/
+export const setRecommendedProducts = ( state, products ) => {
+
+    state.recommendedProducts = [];
+    
+    products.forEach(element => {
+        state.recommendedProducts.push(element);
+    });
+
+}
+
+/*----------------------------------
+    SET PRODUCTS TO CART FUNCTION
+------------------------------------*/
 export const setProductsToCart = ( state, product ) => {
 
     if(state.cart.length != 0) {
@@ -38,6 +57,9 @@ export const setProductsToCart = ( state, product ) => {
 
 }
 
+/*-------------------------------
+    SET SELECTED CART FUNCTION
+---------------------------------*/
 export const setSelectedCart = ( state, product ) => {
 
     state.selectedCart = [];
@@ -48,6 +70,9 @@ export const setSelectedCart = ( state, product ) => {
 
 }
 
+/*-----------------------
+    INCREMENT FUNCTION
+-------------------------*/
 export const increment = ( state, product ) => {
 
     state.cart.forEach(ele => {
@@ -62,6 +87,9 @@ export const increment = ( state, product ) => {
 
 }
 
+/*-----------------------
+    DECREMENT FUNCTION
+-------------------------*/
 export const decrement = ( state, product ) => {
 
     var noQuantity = false;
@@ -99,6 +127,9 @@ export const decrement = ( state, product ) => {
 
 }
 
+/*---------------------------------
+    DELETE CART PRODUCT FUNCTION
+-----------------------------------*/
 export const deleteCartProduct = ( state, product ) => {
 
     state.cart.forEach((ele, index) => {
@@ -115,6 +146,9 @@ export const deleteCartProduct = ( state, product ) => {
 
 }
 
+/*---------------------------------------------
+    SET LOCAL STORAGE CART PRODUCTS FUNCTION
+-----------------------------------------------*/
 export const setLocalStorageCartProducts = ( product ) => {
 
     let localCart = [];
@@ -159,6 +193,9 @@ export const setLocalStorageCartProducts = ( product ) => {
 
 }
 
+/*---------------------------------------------
+    GET LOCAL STORAGE CART PRODUCTS FUNCTION
+-----------------------------------------------*/
 export const getLocalStorageCartProducts = ( state, products ) => {
 
     products.forEach(ele => {
