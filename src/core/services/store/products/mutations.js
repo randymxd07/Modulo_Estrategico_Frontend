@@ -99,6 +99,7 @@ export const decrement = ( state, product ) => {
             ele.quantity--;
             if(ele.quantity <= 0){
                 noQuantity = true;
+                ele.quantity = 1;
             }
         }
     });
@@ -135,6 +136,7 @@ export const deleteCartProduct = ( state, product ) => {
     state.cart.forEach((ele, index) => {
         if(product.element.id == ele.element.id){
             state.cart.splice(index, 1);
+            ele.quantity = 1;
         }
     });
     
