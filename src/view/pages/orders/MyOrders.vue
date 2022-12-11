@@ -16,6 +16,16 @@
           :offset='20' 
           style="max-height: 75vh; overflow-y: scroll;"
         >
+
+          <section class="m-0 row justify-content-center">
+            <img
+              class="img-fluid"
+              v-show="(orders.length === 0)"
+              src="@/view/pages/orders/assets/images/loading_food.gif"
+              alt="Loading Gif"
+            >
+          </section>
+
           <v-expansion-panel class="mb-5" multiple style="border-radius: 20px" v-for="(data, index) in orders" :key="index">
 
             <v-expansion-panel-header>
@@ -80,11 +90,10 @@
             </v-expansion-panel-content>
 
           </v-expansion-panel>
+
         </v-infinite-scroll>
 
       </v-expansion-panels>
-
-      <!-- <img v-show="(soldTickets.length === 0)" src="@/assets/images/no-data-found.png" alt="No Data Found"> -->
 
     </v-app>
 
@@ -101,6 +110,7 @@ export default {
 
   data(){
     return{
+      loading: false,
       offsetOrders: 0,
       limitOrders: 10,
       fullname: '',
@@ -115,7 +125,6 @@ export default {
     nextPage () {
       this.loading = true;
       this.orders = [];
-      // this.offsetOrders += 10;
       this.limitOrders += 10;
       restaurantApi.get(`orders/?offset=${this.offsetOrders}&limit=${this.limitOrders}`)
       .then(({data}) => {
