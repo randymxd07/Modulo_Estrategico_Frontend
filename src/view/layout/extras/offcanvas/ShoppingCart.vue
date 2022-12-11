@@ -125,11 +125,11 @@
 
           <section class="my-5">
             <hr>
-            <h3 class="font-weight-bold m-0">
+            <h3 class="font-weight-bold">
               Recomendado para ti
             </h3>
+            <RecommendedProductsList/>
           </section>
-
 
         </div>
 
@@ -144,11 +144,16 @@
 <script>
 
 import KTLayoutQuickNotifications from "@/assets/js/layout/extended/quick-notifications.js";
+import RecommendedProductsList from "@/view/pages/components/RecommendedProductsList.vue";
 import { mapMutations, mapState } from 'vuex';
 
 export default {
 
   name: "KTQuickPanel",
+
+  components: {
+    RecommendedProductsList,
+  },
 
   computed: {
     ...mapState("productsStore", [
