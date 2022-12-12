@@ -156,7 +156,7 @@ export default {
                 console.log(response.data);
             })
 
-            localStorage.removeItem('orderStatus');
+            // localStorage.removeItem('orderStatus');
 
         },
         
