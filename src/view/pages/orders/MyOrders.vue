@@ -6,7 +6,7 @@
 
     <v-app>
 
-      <v-expansion-panels>
+      <v-expansion-panels class="card p-5" style="border-radius: 20px">
 
         <v-infinite-scroll
           class="col-sm-12"

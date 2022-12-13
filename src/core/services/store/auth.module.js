@@ -1,6 +1,6 @@
 import ApiService from "@/core/services/api.service";
 import JwtService from "@/core/services/jwt.service";
-import restaurantApi from "@/core/services/api/restaurantApi";
+// import restaurantApi from "@/core/services/api/restaurantApi";
 
 // action types
 export const VERIFY_AUTH = "verifyAuth";
@@ -58,27 +58,27 @@ const actions = {
         });
     });
   },
-  async [VERIFY_AUTH](context) {
+  /* async */ [VERIFY_AUTH](context) {
 
     if (JwtService.getToken()) {
 
       ApiService.setHeader();
 
-      await restaurantApi.get('verify')
-      .then(({data}) => {
-        // console.log(data)
-        context.commit(SET_AUTH, data);
-      })
-      .catch(({response}) => {
+      // await restaurantApi.get('verify')
+      // .then(({data}) => {
+      //   // console.log(data)
+      //   context.commit(SET_AUTH, data);
+      // })
+      // .catch(({response}) => {
         
-        console.error(response.data);
+      //   console.error(response.data);
 
-        if(window.location.pathname != '/'){
-          localStorage.clear();
-          this.$router.go();
-        }
+      //   if(window.location.pathname != '/'){
+      //     localStorage.clear();
+      //     this.$router.go();
+      //   }
 
-      })
+      // })
 
     } else {
 
