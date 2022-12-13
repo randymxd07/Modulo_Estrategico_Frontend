@@ -85,16 +85,7 @@ export default {
 
     async applyCoupon(item){
 
-      const json = {
-        description: item.description,
-        percent: item.percent,
-        product_category_id: item.product_category_id,
-        number_of_days: item.number_of_days,
-        color: item.color,
-        status: true
-      }
-
-      await restaurantApi.put(`coupons/${item.id}`, json)
+      await restaurantApi.put(`coupons/${item.id}`, {status: true})
       .then(({data}) => {
         console.log(data.data);
       })
