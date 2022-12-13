@@ -169,23 +169,29 @@ export default {
 
       await restaurantApi.get("products/byCategory/"+data.id)
       .then(({data}) => {
+
         let products = [];
-        let json;
+
         data.data.forEach(element => {
-          json = {
+
+          if(element.discount != null){
+            element.price = Number(element.price - ((+element.discount / 100) * element.price)).toFixed(2);
+          }
+
+          products.push({
             element,
             quantity: 1
-          }
-          products.push(json);
+          });
+
         });
+
         this.setProducts(products);
+
       })
       .catch(({response}) => {
-        console.error(response.data);                  
-        if(response.data.status == 401){
-          localStorage.clear();
-          this.$router.go();
-        }
+
+        console.error(response.data);
+
       })
 
     },

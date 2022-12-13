@@ -14,7 +14,7 @@ export const getProducts = async ({ commit }) => {
     data.data.forEach(element => {
 
       if(element.discount != null){
-        element.price = element.price - ((+element.discount / 100) * +element.price)
+        element.price = Number(element.price - ((+element.discount / 100) * element.price)).toFixed(2);
       }
 
       products.push({
@@ -43,7 +43,7 @@ export const getRecommendedProducts = async ({ commit }) => {
     data.data.forEach(element => {
 
       if(element.discount != null){
-        element.price = element.price - ((+element.discount / 100) * +element.price)
+        element.price = Number(element.price - ((+element.discount / 100) * element.price)).toFixed(2);
       }
 
       products.push({
