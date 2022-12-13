@@ -6,18 +6,18 @@
 
     <div class="card container">
 
-      <section v-for="(item, i) in list" v-bind:key="i">
+      <section v-for="(item, index) in inactiveCoupons" :key="index">
 
         <!-- ITEM -->
         <div
           class="d-flex align-items-center rounded p-5 my-5"
-          v-bind:class="`bg-light-${item.type}`"
+          v-bind:class="`bg-light-${item.color}`"
         >
 
           <!-- ICON -->
           <span
             class="svg-icon mr-5"
-            v-bind:class="`svg-icon-${item.type}`"
+            v-bind:class="`svg-icon-${item.color}`"
           >
             <!-- <span class="svg-icon svg-icon-lg">
               <inline-svg :src="item.svg" />
@@ -37,19 +37,19 @@
               href="#"
               class="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1"
             >
-              {{ item.title }}
+              {{ item.description }}
             </a>
             <span class="text-muted font-size-sm">
-              {{ item.desc }}
+              Cupon valido por {{ item.number_of_days }} días
             </span>
           </div>
 
           <!-- ALT -->
           <span
             class="font-weight-bolder py-1 font-size-lg mr-10"
-            v-bind:class="`text-${item.type}`"
+            v-bind:class="`text-${item.color}`"
           >
-            {{ item.alt }}
+            {{ item.percent }}%
           </span>
 
           <b-button class="p-5" variant="primary">
@@ -67,37 +67,27 @@
 </template>
 
 <script>
+
+import { mapActions, mapState } from 'vuex';
+
 export default {
-  data(){
-    return{
-      list: [
-        {
-          title: "Cupon de Hamburguesas Ricas",
-          desc: "Valido por 2 Días",
-          alt: "-28%",
-          type: "warning"
-        },
-        {
-          title: "Cupon 2 x 1 en Pizzas",
-          desc: "Valido por 2 Días",
-          type: "success"
-        },
-        {
-          title: "Cupon de Especial de Noviembre",
-          desc: "Valido por 2 Días",
-          alt: "-27%",
-          type: "danger"
-        },
-        {
-          title: "Cupon de bebida gratis",
-          desc: "Valido por 2 Días",
-          alt: "-100%",
-          type: "info"
-        }
-      ]
-    }
+
+  computed: {
+    ...mapState("couponStore", [
+      "inactiveCoupons"
+    ])
+  },
+
+  methods: {
+    ...mapActions("couponStore", ["getInactiveCoupons"])
+  },
+
+  async created(){
+    await this.getInactiveCoupons();
   }
+
 }
+
 </script>
 
 <style>

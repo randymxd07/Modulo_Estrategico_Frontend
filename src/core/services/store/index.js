@@ -8,6 +8,7 @@ import breadcrumbs from "./breadcrumbs.module";
 import profile from "./profile.module";
 import productsStore from "./products";
 import orderStatusStore from "./order-status";
+import couponStore from "./coupons";
 
 Vue.use(Vuex);
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
     profile,
     productsStore,
     orderStatusStore,
+    couponStore,
   }
 });
