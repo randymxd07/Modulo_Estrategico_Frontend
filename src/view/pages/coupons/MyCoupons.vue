@@ -75,27 +75,23 @@ export default {
           title: "Cupon de Hamburguesas Ricas",
           desc: "Valido por 2 Días",
           alt: "-28%",
-          svg: "media/svg/icons/Home/Library.svg",
           type: "warning"
         },
         {
           title: "Cupon 2 x 1 en Pizzas",
           desc: "Valido por 2 Días",
-          svg: "media/svg/icons/Communication/Write.svg",
           type: "success"
         },
         {
           title: "Cupon de Especial de Noviembre",
           desc: "Valido por 2 Días",
           alt: "-27%",
-          svg: "media/svg/icons/Communication/Group-chat.svg",
           type: "danger"
         },
         {
           title: "Cupon de bebida gratis",
           desc: "Valido por 2 Días",
           alt: "-100%",
-          svg: "media/svg/icons/General/Attachment2.svg",
           type: "info"
         }
       ]
