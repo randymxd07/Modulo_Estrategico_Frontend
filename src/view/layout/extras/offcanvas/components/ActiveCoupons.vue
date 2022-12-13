@@ -1,15 +1,14 @@
 <template>
   
-  <main>
+  <main v-if="activeCoupons.length != 0">
 
-    <h1 class="mb-10">Mis Cupones</h1>
+    <!-- HEADING -->
+    <h5 class="mb-5">Cupones Activos</h5>
 
-    <div class="card container">
-
-      <section v-for="(item, index) in inactiveCoupons" :key="index">
+    <section v-for="(item, index) in activeCoupons" :key="index">
 
         <!-- ITEM -->
-        <div
+        <article
           class="d-flex align-items-center rounded p-5 my-5"
           v-bind:class="`bg-light-${item.color}`"
         >
@@ -51,66 +50,37 @@
           >
             -{{ item.percent }}%
           </span>
-
-          <b-button @click="applyCoupon(item)" class="p-5" variant="primary">
-            <i class="fas fa-check"></i> Aplicar
-          </b-button>
           
-        </div>
+        </article>
 
-      </section>
+    </section>
 
-    </div>
+    <router-link :to="{ name: 'my-coupons' }" class="btn btn-primary col-sm-12">
+        <i class="fas fa-eye"></i> Ver Más
+    </router-link>
 
   </main>
 
 </template>
 
 <script>
-
-import { mapActions, mapState } from 'vuex';
-import restaurantApi from '@/core/services/api/restaurantApi.js';
+import { mapActions, mapState } from 'vuex'
 
 export default {
 
-  computed: {
-    ...mapState("couponStore", [
-      "inactiveCoupons"
-    ])
-  },
-
-  methods: {
-    
-    ...mapActions("couponStore", ["getInactiveCoupons"]),
-
-    async applyCoupon(item){
-
-      const json = {
-        description: item.description,
-        percent: item.percent,
-        product_category_id: item.product_category_id,
-        number_of_days: item.number_of_days,
-        color: item.color,
-        status: true
-      }
-
-      await restaurantApi.put(`coupons/${item.id}`, json)
-      .then(({data}) => {
-        console.log(data.data);
-      })
-      .catch(({response}) => {
-        console.error((response.data));
-      })
-
-      this.$router.go();
-
+    computed: {
+        ...mapState("couponStore", [
+        "activeCoupons"
+        ])
     },
 
-  },
+    methods: {
+        ...mapActions("couponStore", ["getActiveCoupons"])
+    },
 
-  async created(){
-    await this.getInactiveCoupons();
-  }
+    async created(){
+        await this.getActiveCoupons();
+    }
 
 }
 
