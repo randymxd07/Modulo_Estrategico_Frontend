@@ -18,8 +18,8 @@
             <img
               width="600"
               height="150"
-              :src="data.element.image_url" 
-              class="card-img-top" 
+              :src="data.element.image_url"
+              class="card-img-top"
               alt="..."
             >
 
@@ -27,6 +27,9 @@
             <div class="card-img-overlay">
               <b class="bg-primary rounded card-title p-3">
                 RD${{data.element.price}}
+              </b>
+              <b v-if="data.element.discount != null" class="bg-warning rounded card-title p-3">
+                -{{+data.element.discount}}%
               </b>
             </div>
 

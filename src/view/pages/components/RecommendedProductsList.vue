@@ -26,6 +26,9 @@
             <b class="bg-primary rounded card-title p-3">
               RD${{data.element.price}}
             </b>
+            <b v-if="data.element.discount != null" class="bg-warning rounded card-title p-3">
+              -{{+data.element.discount}}%
+            </b>
           </div>
 
         </div>

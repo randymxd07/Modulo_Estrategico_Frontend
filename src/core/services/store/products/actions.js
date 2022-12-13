@@ -12,10 +12,16 @@ export const getProducts = async ({ commit }) => {
     let products = [];
 
     data.data.forEach(element => {
+
+      if(element.discount != null){
+        element.price = element.price - ((+element.discount / 100) * +element.price)
+      }
+
       products.push({
         element,
         quantity: 1
       });
+
     });
     
     commit("setProducts", products);
@@ -35,10 +41,16 @@ export const getRecommendedProducts = async ({ commit }) => {
     let products = [];
 
     data.data.forEach(element => {
+
+      if(element.discount != null){
+        element.price = element.price - ((+element.discount / 100) * +element.price)
+      }
+
       products.push({
         element,
         quantity: 1
       });
+
     });
     
     commit("setRecommendedProducts", products);
