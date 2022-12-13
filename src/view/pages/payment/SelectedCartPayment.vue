@@ -47,17 +47,19 @@
                                         <b-th>PRODUCTO</b-th>
                                         <b-th>CANTIDAD</b-th>
                                         <b-th>PRECIO</b-th>
+                                        <b-th>DESCUENTO</b-th>
                                         <b-th>SUBTOTAL</b-th>
                                     </b-tr>
                                 </b-thead>
 
                                 <!-- TABLE BODY -->
-                                <b-tbody>
-                                    <b-tr v-for="orderDetails in data.order_details" :key="orderDetails.product_id">
-                                        <b-td>{{orderDetails.product_name}}</b-td>
-                                        <b-td>{{orderDetails.quantity}}</b-td>
-                                        <b-td>RD$ {{orderDetails.product_price}}</b-td>
-                                        <b-td>RD$ {{(orderDetails.quantity * orderDetails.product_price).toFixed(2)}}</b-td>
+                                <b-tbody v-for="(orderDetail, index) in data.order_details" :key="index">
+                                    <b-tr>
+                                    <b-td>{{orderDetail.product_name}}</b-td>
+                                    <b-td>{{orderDetail.quantity}}</b-td>
+                                    <b-td>RD$ {{orderDetail.product_price}}</b-td>
+                                    <b-td>{{(orderDetail.discount != null) ? +orderDetail.discount : 0}}%</b-td>
+                                    <b-td>RD$ {{getSubtotal(orderDetail)}}</b-td>
                                     </b-tr>
                                 </b-tbody>
 
@@ -282,11 +284,21 @@ export default {
             return new Date().toLocaleString();
         },
 
+        getSubtotal(data){
+
+            let subtotal = (+data.quantity * +data.product_price)
+
+            let total = Number(subtotal - (+data.discount / 100) * subtotal).toFixed(2);
+
+            return total;
+
+        },
+
         getTotalAccount(){
             var sum = 0;
             this.selectedCart.forEach(element => {
                 element.order_details.forEach(ele => {
-                    sum += (+ele.product_price * ele.quantity);
+                    sum += ((+ele.product_price * ele.quantity) - (+ele.discount / 100) * (+ele.product_price * ele.quantity));
                 })
             })
             return sum;
@@ -311,7 +323,8 @@ export default {
                     element.order_details.forEach(ele => {
                         this.orderDetails.push({
                             product_id: ele.product_id,
-                            quantity: ele.quantity
+                            quantity: ele.quantity,
+                            discount: ele.discount,
                         })
                     })
                 })

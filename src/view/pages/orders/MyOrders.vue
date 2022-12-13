@@ -169,15 +169,11 @@ export default {
     },
 
     getTotalAccount(data){
-
       var sum = 0;
-
       data.forEach(ele => {
         sum += ((+ele.product_price * ele.quantity) - (+ele.discount / 100) * (+ele.product_price * ele.quantity));
       })
-
       return sum;
-
     },
 
   },
