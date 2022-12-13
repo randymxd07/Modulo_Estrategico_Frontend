@@ -311,7 +311,8 @@ export default {
                     this.cart.forEach(ele => {
                         this.orderDetails.push({
                             product_id: ele.element.id,
-                            quantity: ele.quantity
+                            quantity: ele.quantity,
+                            discount: ele.element.discount,
                         })
                     });
                 }

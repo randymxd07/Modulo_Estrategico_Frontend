@@ -65,6 +65,7 @@
                       <b-th>PRODUCTO</b-th>
                       <b-th>CANTIDAD</b-th>
                       <b-th>PRECIO</b-th>
+                      <b-th>DESCUENTO</b-th>
                       <b-th>SUBTOTAL</b-th>
                     </b-tr>
                   </b-thead>
@@ -75,7 +76,8 @@
                       <b-td>{{orderDetail.product_name}}</b-td>
                       <b-td>{{orderDetail.quantity}}</b-td>
                       <b-td>RD$ {{orderDetail.product_price}}</b-td>
-                      <b-td>RD$ {{(orderDetail.quantity * orderDetail.product_price).toFixed(2)}}</b-td>
+                      <b-td>{{(orderDetail.discount != null) ? +orderDetail.discount : 0}}%</b-td>
+                      <b-td>RD$ {{getSubtotal(orderDetail)}}</b-td>
                     </b-tr>
                   </b-tbody>
 
@@ -156,12 +158,26 @@ export default {
       return new Date().toLocaleString();
     },
 
+    getSubtotal(data){
+
+      let subtotal = (+data.quantity * +data.product_price)
+
+      let total = Number(subtotal - (+data.discount / 100) * subtotal).toFixed(2);
+
+      return total;
+
+    },
+
     getTotalAccount(data){
+
       var sum = 0;
+
       data.forEach(ele => {
-        sum += (+ele.product_price * ele.quantity);
+        sum += ((+ele.product_price * ele.quantity) - (+ele.discount / 100) * (+ele.product_price * ele.quantity));
       })
+
       return sum;
+
     },
 
   },
