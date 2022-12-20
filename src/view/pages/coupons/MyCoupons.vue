@@ -101,7 +101,7 @@ export default {
         console.error((response.data));
       })
 
-      this.$router.go();
+      this.$router.push({ name: 'dashboard' });
 
     },
 
