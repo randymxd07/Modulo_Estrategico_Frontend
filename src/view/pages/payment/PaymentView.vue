@@ -330,7 +330,7 @@ export default {
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
-                    // console.log(data);
+                    console.log(data);
                     localStorage.setItem('paymentOrders', JSON.stringify(this.cart));
                     localStorage.setItem('order_id', JSON.stringify(data.data.id));
                     this.$router.push({ name: 'order-status' })
@@ -354,7 +354,8 @@ export default {
                 this.cart.forEach(ele => {
                     this.orderDetails.push({
                         product_id: ele.element.id,
-                        quantity: ele.quantity
+                        quantity: ele.quantity,
+                        discount: ele.element.discount,
                     })
                 });
 
@@ -371,14 +372,14 @@ export default {
 
                 await restaurantApi.post('orders', json)
                 .then(({data}) => {
-                    // console.log(data);
+                    console.log(data);
                     localStorage.setItem('paymentOrders', JSON.stringify(this.cart));
                     localStorage.setItem('order_id', JSON.stringify(data.data.id));
                     this.$router.push({ name: 'order-status' })
                 })
-                // .catch(({response}) => {
-                //     console.error(response.data);
-                // })
+                .catch(({response}) => {
+                    console.error(response.data);
+                })
 
             }
 
