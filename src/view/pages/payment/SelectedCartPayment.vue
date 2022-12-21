@@ -367,7 +367,8 @@ export default {
                     element.order_details.forEach(ele => {
                         this.orderDetails.push({
                             product_id: ele.product_id,
-                            quantity: ele.quantity
+                            quantity: ele.quantity,
+                            discount: ele.discount,
                         })
                     })
                 })
