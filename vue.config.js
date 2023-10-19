@@ -18,7 +18,7 @@ module.exports = {
       .rule("eslint")
       .use("eslint-loader")
       .tap(options => {
-        options.configFile = path.resolve(__dirname, ".eslintrc.js");
+        // options.configFile = path.resolve(__dirname, ".eslintrc.js");
         return options;
       });
   },

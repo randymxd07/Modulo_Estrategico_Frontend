@@ -87,8 +87,8 @@
 				$width: 100 / $i;
 				&[data-total-steps="#{$i}"] {
 					.wizard-step {
-						flex: 0 0 calc(#{$width}% - 0.25rem);
-						width: calc(#{$width}% - 0.25rem);
+						// flex: 0 0 calc(#{$width}% - 0.25rem);
+						// width: calc(#{$width}% - 0.25rem);
 					}
 				}
 			}
